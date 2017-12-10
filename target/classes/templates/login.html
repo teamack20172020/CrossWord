@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8"></meta>
+<title>ログイン画面</title>
+</head>
+<body>
+	<div style="margin-top: 150px;">
+		<img src="/images/logo.png" alt="ロゴ"
+			style="display: block; margin: 0 auto;" />
+	</div>
+	<form style="display: block;" method="POST" action="/login">
+		<table border="0" align="center">
+			<tr th:if="${param.error}">
+				<td colspan="2">
+				<p style="background-color: #FDD; border-radius: 5px; padding: 3px 10px; font-size: 12px;">えらーだよ!!</p>
+				</td>
+			</tr>
+			<tr>
+				<th>あいでぃー:</th>
+				<td><input type="text" name="username" size="30" /></td>
+			</tr>
+			<tr>
+				<th>ぱすわ―ど:</th>
+				<td><input type="password" name="password" size="30" /></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;" colspan="2"><input class="editbutton" type="submit"
+					value="ろぐいん" style="width: 80px; height: 30px;" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

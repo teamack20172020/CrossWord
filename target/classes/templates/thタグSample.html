@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="common/layout" th:with="title=ほーむ">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{'/css/userpage.css'}" />
+</head>
+<body layout:fragment="layout-content">
+	<div class="postbox">
+		<h3>投稿一覧（最近10件）</h3>
+		<table id = "myTable" class="reports">
+			<thead>
+			<tr><th>日報</th><th>作成者</th><th>テンプレート</th><th>投稿日時</th></tr>
+			</thead>
+			<tbody>
+			<tr th:each = "report : ${recentReports}" th:attr="data-report-id=${report.id}">
+				<td><span
+					th:text="|日報_${#dates.format(report.updated, 'yyyyMMdd')}(${report.user.lastName} ${report.user.firstName})|">日報_20170819(テスト
+						ユーザー)</span></td>
+				<td th:text="|${report.user.lastName} ${report.user.firstName}|">テスト
+					ユーザー</td>
+				<td th:text="${report.template.name}">デフォルト</td>
+				<td th:text="${#dates.format(report.updated, 'yyyy/MM/dd HH:mm')}">2017/8/19 17:23</td>
+			</tr>
+			</tbody>
+		</table>
+
+	<!-- 	<ul th:each="report : ${recentReports}">
+			<li><a th:href="@{'/reports/' + ${report.id}}"
+				th:text="|日報_${#dates.format(report.updated, 'yyyyMMdd')}(${report.user.lastName} ${report.user.firstName})|">aaa</a></li>
+		</ul> -->
+	</div>
+	<div class="commentbox">
+		<h3>最近のコメント</h3>
+		<ul style="list-style-type: none; padding-left: 10px; padding-bottom: 10px;">
+			<li th:each="comment : ${recentComments}" style="border-bottom: 1px solid #999;">
+				<p id = "commentline"><a style="font-size: 20px;" th:href="@{'/reports/'+ ${comment.report.id}}" th:text="${comment.text}">これはテストコメントです。></a></p>
+				<span th:text="|日報_${#dates.format(comment.report.updated, 'yyyyMMdd')}(${comment.report.user.lastName} ${comment.report.user.firstName})|">日報_20170815(テストユーザー)</span>
+				<span th:text="|${comment.user.lastName} ${comment.user.firstName}|">テストユーザー</span>
+				<span th:text="|${#dates.format(comment.updated, 'MM/dd HH:mm:ss')}|">2017/8/19</span>
+			</li>
+		</ul>
+	</div>
+
+</body>
+</html>
