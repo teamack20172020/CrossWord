@@ -1,0 +1,86 @@
+﻿@charset utf-8
+
+figure {position: absolute;
+        margin-top:0;
+        padding:0;
+}
+
+figure img{width:70%;
+          margin-top:0;      
+}
+
+body {background-color:#ffefd5;
+       text-align:center;
+     position: absolute;
+      z-index: 1;  
+}
+
+
+
+  
+nav{margin-left:auto;
+    maargin-right:auto;
+     text-align:center;
+     margin-top:-5%;
+     margin-bottom;10px;}
+
+
+nav li {margin: 0px auto;
+       width:15%;
+        height:20%;
+        font-size:50px;
+        background-color:#fffaf0;
+        border-radius:100px;
+        padding:0;
+        margin-bottom:0.2%;
+        border:solid 3px #b0c4de;
+         display: inline;
+       }
+
+li#b{margin: 0px auto;
+      width:4%;
+      height:3%;}
+
+li#b a{text-decoration:none;
+     color:white;
+     font-size:40px;
+      display: inline;
+     }
+
+nav ul {list-style-type:none;}
+
+nav a{color:#b0c4de;
+      font-family: 'アボカド', cursive;         /*細かい設定の場合こっちが優先*/
+      font-size:60px;
+      text-decoration:none;  
+}
+
+
+nav a:hover{background-color:#dc143c;
+             border-radius:100px;
+        	text-decoration:none;}
+
+
+
+#text2{position: absolute;
+      background-color:#afeeee;
+      display:none;
+      width:40%;
+      height:60%;
+       z-index: 2;
+       top:15%;
+     left:30%;
+}
+
+
+#text3{position: absolute;
+       display:none;
+      width:70%;
+       z-index: 2;
+     top:15%;
+     left:15%;
+       background-color:#afeeee;
+}
+
+.hide{displa}
+

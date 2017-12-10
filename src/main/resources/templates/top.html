@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>sample</title>
+ <script type="text/javascript" src="javascript/scr.js" ></script>
+<link rel="stylesheet" href="css/style0.css">
+</head>
+
+<body>
+ <figure> <!--図番-->
+       <img src="photo/IMG_1292.PNG" alt="クロスワードタイトル">
+ </figure>
+ 
+   <nav>
+       <ul>
+           <li ><a href="javascript:void(0)" onclick="Dshow('text2');">スタート</a></li>
+           <li ><a href="javascript:void(0)" onclick="Dshow('text3');">ルール</a></li>
+           <li id="b"><a href=""  >♔</a></li>       
+       </ul>
+   </nav>
+   
+<form action="" method="POST">
+   <div id="text2" class="textALL">
+     <p onclick="Dnone('text2')">×<p>
+     
+       <p><label>名前<input type="text" name="username" required ></label></p>
+         <p>難易度
+      		<label>
+        	      <input type="radio" name="sei" value="0" >★1
+     		</label>
+     		<label>
+    		      <input type="radio" name="difficlut" value="1">★２
+     		</label>
+     		<label>
+        	      <input type="radio" name="difficult" value="2" >★3
+     		</label>
+         </p>
+   
+   
+   
+      <p>ジャンル
+    <select name="useradd">
+    		<option value="0">乗り物</option>
+    		<option value="1">食べ物</option>
+    		<option value="2"></option>
+    		<option value="3">中部</option>
+    		<option value="4">北陸</option>
+    		<option value="5">中四国</option>
+    		<option value="6">九州</option>
+    		<option value="7">沖縄</option>
+    	</select>	
+    </p>
+   
+   </div>
+     <form>
+     
+    <div id="text3" class="textALL">
+      <p onclick="Dnone('text3')">×<p>
+    <h1>ルール<h1>
+    </div>
+   
+   
+ </body>
+</html>
+
