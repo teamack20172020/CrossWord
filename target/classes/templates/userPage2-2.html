@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org" th:with="title=ほーむ">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>FOREST STUDIO</title>
+		<link rel="stylesheet" type="text/css" th:href="@{'/css/common.css'}" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="../javascript/createCrossword.js"></script>
+	</head>
+
+	<body>
+		<header>
+		<h1>FOREST STUDIO</h1>
+		</header>
+		<form th:object="${h_from}">
+			<section>
+			<div id='test01'></div>
+			<input id='user' type="hidden" th:value="${h_from.user}" />
+			<input id='template' type="hidden" th:value="${h_from.crossWord}" />
+			</section>
+		</form>
+		<footer>
+		</footer>
+	</body>
+</html>

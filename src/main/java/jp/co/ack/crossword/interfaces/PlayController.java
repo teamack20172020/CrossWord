@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.ack.crossword.application.PlayService;
+import jp.co.ack.crossword.application.TestService;
 import jp.co.ack.crossword.application.UserService;
 import jp.co.ack.crossword.domain.User.User;
+import jp.co.ack.crossword.interfaces.vo.crossplayForm;
 
 @Controller
 @RequestMapping("/")
@@ -20,6 +22,8 @@ public class PlayController {
 	UserService userService;
 	@Autowired
 	PlayService playService;
+	@Autowired
+	TestService testService;
 
 	@GetMapping
 	public ModelAndView top() {
@@ -41,14 +45,13 @@ public class PlayController {
 	 */
 	@GetMapping("home/play")
 	public ModelAndView play() {
-		//登録日時の編集
+		//新規ユーザー登録・取得
 		Date datetime = userService.getCreateDate();
-		//新規ユーザー登録
-		System.out.println("登録時刻：" + datetime);
-		//登録ユーザーの取得
-		User j_user = userService.getUserByCreated(datetime);
-		ModelAndView mav = new ModelAndView("play");
-		mav.addObject("h_user",j_user);
+		User user = userService.getUserByCreated(datetime);
+		crossplayForm j_from = new crossplayForm(user,testService.getCrossWord());
+		//クロスワードの自動生成
+		ModelAndView mav = new ModelAndView("userPage2-2");
+		mav.addObject("h_from",j_from);
 		return mav;
 	}
 
