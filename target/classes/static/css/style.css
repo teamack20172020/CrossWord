@@ -1,0 +1,179 @@
+﻿@charset utf-8
+
+
+/*写真*/
+div#a{position: absolute;
+      top:0px;
+        padding:0;
+       margin-bottom:0;
+}
+
+figure img{width:60%;
+          margin-top:0;      
+}
+
+/*body*/
+body {background-color:#fffaf0;
+       text-align:center;
+     position: absolute;
+      z-index: 1;  
+}
+
+
+
+/*スタートとか*/
+div.nav{margin-left:auto;
+    maargin-right:auto;
+     text-align:center;
+     margin-top:-5%;
+     margin-bottom;10px;}
+
+.nav ul {list-style-type:none;
+        margin-top:50px;
+}
+
+.nav li {margin: 0px auto;
+         width:15%;
+         height:20%;
+         background-color:#fffaf0;
+         padding:0;
+         display: inline;
+         margin-right:1.5%;
+         margin-left:1.5%;
+}
+
+
+
+.nav a{color:white;
+      font-family: 'アボカド', cursive;         /*細かい設定の場合こっちが優先*/
+      font-size:60px;
+      text-decoration:none;
+       background-color:#2692ac;  
+       border-radius:100px;
+        padding: 0 10px;;      
+}
+
+
+.nav a:hover{background-color:#7fffd4;
+             border-radius:100px;
+        	text-decoration:none;}
+
+
+/*ランキングと説明ボタン*/
+#nav2 {margin-top: 0px;
+       left:80%;
+       width:10%;
+       position:absolute;
+       z-index: 2;
+       top:5%;
+       left:75%;
+       padding:0;
+}
+
+
+div#nav2 li{display:block;
+            width:50px;
+            height:50px;
+            border-radius:50px;
+		    background-color:transparent; 
+            font-size:40px;	     
+            margin-bottom:3%; 
+            padding:2%; 
+            border:solid 5px #b0c4de;
+}
+
+div#nav2 li:hover{display:block;
+                  width:50px;
+                  height:50px;
+                  border-radius:50px;
+		          background-color: #7fffd4;       
+                  margin-bottom:3%;  
+                  border:solid 2px: #7fffd4;
+}
+
+div#nav2 a{color:#b0c4de;
+           background-color:transparent;
+           text-decoration:none;
+           font-size:35px;
+           width:50px;
+           display:table-cell;  
+           font-weight:bold;
+           
+}
+
+
+
+
+
+/*text2(設定の処理)*/
+#text2{position: absolute;
+      background-color:white;
+      display:none;
+      width:20%;
+      height:70%;
+      z-index: 4;
+      top:15%;
+     left:40%;
+     padding:10px;
+     border-radius:10px;
+    border:solid 15px #afeeee;
+}
+
+input[type="submit"]{background-color:#FFA500;
+                     font-size:20px;
+                     color:white;
+                     font-weight: bold;
+  				    padding: 10px 30px;
+                    border-radius:20px;
+                     border-style: none;
+                  margin-bottom:0;
+}
+
+
+input[type="submit"]:hover{background-color:#FFD700;
+
+}
+
+/*text3の処理*/
+#text3{position:absolute;
+      background-color:white;
+      display:none;
+      width:60%;
+      height:80%;
+       z-index:4;
+       top:15%;
+     left:20%;
+    border-radius:10px;
+    border:solid 15px #afeeee;
+}
+
+#text2 p{margin-top:0;
+         padding:0;
+        clear:both;
+}
+
+
+a.kesu{left:60%;
+       color:brown;
+       text-decoration:none;
+       font-size:30px;
+       text-align:right;
+       display:inline;
+      float: right ; 
+     margin-right:2%;
+}
+
+
+#urakuri{position: absolute;
+         top:0;
+         left:0;
+         width:100%;
+	     height:120%;            
+         opacity:0.5;
+         background-color:black;
+         z-index: 3;
+         display:none;
+            
+}
+
+

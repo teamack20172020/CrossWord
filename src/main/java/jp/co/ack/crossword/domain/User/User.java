@@ -6,36 +6,62 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
-	private String id;
-	private String firstName;
+	private int id;
+	private int  missCnt;
+	private long playTime;
+	private String Name;
 	private String password;
 	private Date created;
 	private Date updated;
 
 	@Id
-	@Column(name = "id")
-	public String getId() {
+	@Column(name = "Id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
+
 	@Basic
-	@Column(name = "FirstName")
-	public String getFirstName() {
-		return firstName;
+	@Column(name = "MissCnt")
+	public int getMissCnt() {
+		return missCnt;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setMissCnt(int missCnt) {
+		this.missCnt = missCnt;
+	}
+
+	@Basic
+	@Column(name = "PlayTime")
+	public long getPlayTime() {
+		return playTime;
+	}
+
+	public void setPlayTime(long playTime) {
+		this.playTime = playTime;
+	}
+
+	@Basic
+	@Column(name = "Name")
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String Name) {
+		this.Name = Name;
 	}
 
 	@Basic
@@ -49,7 +75,7 @@ public class User implements Serializable {
 	}
 
 	@Basic
-	@Column(name = "created")
+	@Column(name = "Created")
 	public Date getCreated() {
 		return created;
 	}
@@ -59,12 +85,13 @@ public class User implements Serializable {
 	}
 
 	@Basic
-	@Column(name = "updated")
+	@Column(name = "Updated")
 	public Date getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(Date
+			updated) {
 		this.updated = updated;
 	}
 }

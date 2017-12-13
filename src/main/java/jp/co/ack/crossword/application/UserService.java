@@ -1,5 +1,11 @@
 package jp.co.ack.crossword.application;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,11 +30,79 @@ public class UserService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass());
 
-	public User getUserById(String id) {
-		return userRepository.findByIdBinary(id);
+	/**
+	 * ユーザーIDを元に１件取得
+	 */
+	public User getUserById(int id) {
+		return userRepository.findById(id);
 	}
 
-/*	@Override
+	/**
+	 * ユーザー登録日時を元に１件取得
+	 */
+	public User getUserByCreated(Date datetime) {
+		return userRepository.findByCreated(datetime);
+	}
+
+
+	/**
+	 * ユーザー全件取得
+	 *
+	 */
+	public List<User> getAll(){
+		List<User> users = (List<User>) userRepository.findAll();
+		return users;
+	}
+
+
+	/**
+	 * ユーザー登録処理
+	 *
+	 */
+	public void saveUser(Date now){
+		try {
+			User user = new User();
+			user.setMissCnt(0);
+			user.setCreated(now);
+			user.setPlayTime(System.currentTimeMillis());
+			userRepository.save(user);
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * ユーザー更新処理
+	 *
+	 */
+	public void updateUser(User user,boolean res){
+		user.setMissCnt(user.getMissCnt()+1);
+		if(res){
+			long end = System.currentTimeMillis();
+			user.setPlayTime(end-user.getPlayTime());
+		}
+		userRepository.save(user);
+	}
+
+	/**
+	 * ユーザー更新処理
+	 *
+	 */
+	public Date getCreateDate(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date datetime = new Date();
+		try {
+			String str = format.format(datetime);
+			datetime =  format.parse(str);
+		} catch (ParseException e) {
+			//日付の型フォーマットに失敗しても何もしない
+			System.out.println(e);
+		}
+		return datetime;
+	}
+
+	/*	@Override
 	public Mst loadUserByUsername(String username) throws UsernameNotFoundException {
 		Mst user = getUserById(username);
 		if (user == null || !user.getId().equals(username)) {
@@ -45,7 +119,7 @@ public class UserService {
 	 * @param passWord
 	 * @param email
 	 */
-/*	public List<Mst> userSearch(SearchUser form) {
+	/*	public List<Mst> userSearch(SearchUser form) {
 		Mst user = new Mst();
 		StringBuffer strUsersearchSQL = new StringBuffer();
 		strUsersearchSQL.append("select ");
