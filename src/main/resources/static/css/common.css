@@ -1,32 +1,17 @@
 ﻿@charset "utf-8";
 
-/*入力項目の枠削除
-/*
-.crossword[type="text"] {
-	font-size: 18px;
-	text-align: center;
-	width: calc(100vmin - 220px);
-	height:  calc(100vmin - 220px);
-	outline: 0;
-	border: 0px;
-	background: transparent;
-}
-*/
-.crossword[type="text"] {
-	font-size: 18px;
-	text-align: center;
-	width: calc(0vmin + 60px);
-	height:  calc(0vmin + 60px);
+/*画面共通*/
+html, body {
+	/*高さを100％に設定*/
+	hight: 100%;
 }
 
-#enp.crossword{
-	background-color: #000000;
-}
-ul{
-	list-style:none;
+body {
+	width: 500px;
+	margin: auto;
 }
 
-#row ul li{
-    display: inline;
- }
-
+nav ul {
+	margin: auto;
+	overflow: hidden;
+}
