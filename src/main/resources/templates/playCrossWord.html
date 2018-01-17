@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>クロスワード</title>
+		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	</head>
+	<body th:object="${h_from}">
+		<header>
+			<input id='user' type="hidden" th:field="*{user}" />
+			<input id='temp' type="hidden" th:field="*{temp}" />
+			<div th:replace="common/header::header"></div>
+		</header>
+		<div id="body">
+		<form action="play/check" method="get">
+			<!-- クロスワード出力部 -->
+			<section class="crossword" id="main">
+				<p><span>00:00</span></p>
+				<ul id="table">
+				<li th:each="wordlist, row : ${h_from.crossWord_list}">
+					<div id="row"><ul>
+						<li th:each="word, col : ${wordlist}">
+							<div th:switch="${word}">
+								<input  th:case="${h_from.temp.noempty}"
+										id="enp" class="crossword" type="text" maxlength="1" th:value="${word}" ></input>
+								<input th:case="*"
+										id="noenp" class="crossword" type="text" maxlength="1" th:value="${word}"></input>
+								<input id="crossWord_list" type="hidden" th:field="*{crossWord_list[__${row.index}__][__${col.index}__]}"></input>
+							</div>
+						</li></ul>
+						</div>
+				</li>
+				</ul>
+			</section>
+			<!-- ヒント出力部 -->
+			<section class="crossword" id="hint">
+				<ul>
+				<li class="hint" id="left">
+					<p>横キー<br /></p>
+					<ul id="keycol" th:each="word : ${h_from.temp.wordListCol}">
+					    <li th:text="${word.word}"></li>
+					</ul>
+				</li>
+				<li class="hint" id="right">
+					<p>縦キー<br /></p>
+					<ul id="keyrow" th:each="word : ${h_from.temp.wordListRow}">
+					    <li th:text="${word.word}"></li>
+					</ul>
+					</li>
+				</ul>
+			</section>
+			<div id="button-center">
+				<p>
+				<a class="button-big" id="button-orange" href="crossword/play/check" th:href="@{/crossword/play/check}">完成</a>
+				</p>
+			</div>
+		</form>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>

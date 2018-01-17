@@ -8,50 +8,64 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.co.ack.crossword.application.CreateService;
 import jp.co.ack.crossword.application.PlayService;
 import jp.co.ack.crossword.application.TestService;
 import jp.co.ack.crossword.application.UserService;
 import jp.co.ack.crossword.domain.User.User;
 import jp.co.ack.crossword.interfaces.vo.crossplayForm;
+import jp.co.ack.crossword.interfaces.vo.template;
 
 @Controller
-@RequestMapping("/")
-public class PlayController {
+@RequestMapping("/crossword")
+public class CrossWordController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	CreateService createService;
+
 	@Autowired
 	PlayService playService;
 	@Autowired
 	TestService testService;
 
-	@GetMapping
-	public ModelAndView top() {
-		ModelAndView mav = new ModelAndView("userPage");
-		return mav;
-	}
-
 	/**
 	 * トップぺージ
+	 *
 	 */
-	@GetMapping("home")
+	@GetMapping
 	public ModelAndView home() {
-		ModelAndView mav = new ModelAndView("home");
+		ModelAndView mav = new ModelAndView("homeCrossWord");
 		return mav;
 	}
 
 	/**
 	 * プレイページ
 	 */
-	@GetMapping("home/play")
+	@GetMapping("play")
 	public ModelAndView play() {
 		//新規ユーザー登録・取得
 		Date datetime = userService.getCreateDate();
 		User user = userService.getUserByCreated(datetime);
-		crossplayForm j_from = new crossplayForm(user,testService.getCrossWord());
+
 		//クロスワードの自動生成
-		ModelAndView mav = new ModelAndView("userPage2-2");
+		template temp = createService.create(7,7,50);
+
+		//ページの描画
+		crossplayForm j_from = new crossplayForm();
+		j_from.ini(user, temp);
+		ModelAndView mav = new ModelAndView("playCrossWord");
 		mav.addObject("h_from",j_from);
+		return mav;
+	}
+
+	/**
+	 * クロスワード結果確認
+	 */
+	@GetMapping("play/check")
+	public ModelAndView croCheck() {
+		ModelAndView mav = new ModelAndView("play");
 		return mav;
 	}
 

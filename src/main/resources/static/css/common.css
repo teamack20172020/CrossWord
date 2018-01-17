@@ -1,17 +1,38 @@
-﻿@charset "utf-8";
+﻿/**共通レイアウト**/
+@charset "utf-8";
 
-/*画面共通*/
-html, body {
-	/*高さを100％に設定*/
-	hight: 100%;
-}
+@import url('button.css');
 
+/*外枠レイアウト*/
 body {
-	width: 500px;
-	margin: auto;
+	padding: 10px;
+	background-image: url('/photo/background.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
 }
 
-nav ul {
-	margin: auto;
-	overflow: hidden;
+header, #body {
+	width: 860px;
+	margin: 0 auto 0 auto;
+}
+
+img{
+	width: 100%;
+}
+
+#body {
+		height: 680px;
+	    background-color: white;
+}
+
+#main{
+    padding: 10px;
+    text-align: center;
+}
+
+/*見直し要*/
+ul {
+	list-style: none;
 }

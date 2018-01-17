@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlayService {
 
-
 	public void create(){
 		int num = 5;
 		int size = num * num;
@@ -25,7 +24,7 @@ public class PlayService {
 		}
 
 		//四隅と分断を除去
-		
+
 
 		for(int i = 0; i < size;i++){
 			System.out.print(template[i]);

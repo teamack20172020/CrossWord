@@ -1,0 +1,77 @@
+﻿/*ボタンレイアウト*/
+@charset "utf-8";
+
+/*中央表示*/
+#button-center {
+	padding:10px;
+	text-align: center;
+	font-weight: bold;
+}
+
+:hover{
+		#cc0000
+}
+/*左表示*/
+#button-left {
+	padding:10px;
+	text-align: left;
+	font-weight: bold;
+}
+
+/*右表示*/
+#button-right {
+	padding:10px;
+	text-align: right;
+	font-weight: bold;
+}
+
+/*サイズ[大]*/
+ .button-big{
+	font-size:52px;
+	padding: 10px 20px;
+	background-position:center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size:cover;
+	text-decoration: none;
+}
+
+/*色[オレンジ色]*/
+#button-orange{
+	background-image:url('/photo/button/btn_02.png');
+}
+#button-orange:hover{
+	background-image:url('/photo/button/btn_01.png');
+}
+
+/*色[黄色]*/
+#button-yellow{
+	background-image:url('/photo/button/btn_03.png');
+}
+#button-yellow:hover{
+	background-image:url('/photo/button/btn_02.png');
+}
+
+/*色[水色]*/
+#button-skyblue{
+	background-image:url('/photo/button/btn_05.png');
+}
+#button-skyblue:hover{
+	background-image:url('/photo/button/btn_04.png');
+}
+
+/*色[桃色]*/
+#button-pink{
+	background-image:url('/photo/button/btn_06.png');
+}
+#button-pink:hover{
+	background-image:url('/photo/button/btn_01.png');
+}
+
+/*色[白色]*/
+#button-white{
+	background-image:url('/photo/button/btn_07.png');
+}
+#button-white:hover{
+	background-image:url('/photo/button/btn_08.png');
+}

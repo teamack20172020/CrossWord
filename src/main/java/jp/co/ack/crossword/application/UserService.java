@@ -16,13 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jp.co.ack.crossword.domain.User.User;
+import jp.co.ack.crossword.domain.User.UserRepository;
 
 
 @Service
 //public class UserService implements UserDetailsService {
 public class UserService {
 	@Autowired
-	private jp.co.ack.crossword.domain.User.UserRepository userRepository;
+	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@PersistenceContext

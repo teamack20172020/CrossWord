@@ -14,10 +14,16 @@ import javax.persistence.Table;
 @Table(name = "word")
 public class Word implements Serializable {
 	private int id;
-	private int cnt;
 	private int kbn;
+	private int size;
 	private String word;
 
+	public void setWord(Word word){
+		this.id = word.getId();
+		this.kbn = word.getKbn();
+		this.size = word.getSize();
+		this.word = word.getWord();
+	}
 
 	@Id
 	@Column(name = "id")
@@ -31,13 +37,13 @@ public class Word implements Serializable {
 	}
 
 	@Basic
-	@Column(name = "cnt")
-	public int getCnt() {
-		return cnt;
+	@Column(name = "size")
+	public int getSize() {
+		return size;
 	}
 
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	@Basic

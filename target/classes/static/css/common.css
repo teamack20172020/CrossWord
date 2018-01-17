@@ -1,32 +1,38 @@
-﻿@charset "utf-8";
+﻿/**共通レイアウト**/
+@charset "utf-8";
 
-/*入力項目の枠削除
-/*
-.crossword[type="text"] {
-	font-size: 18px;
-	text-align: center;
-	width: calc(100vmin - 220px);
-	height:  calc(100vmin - 220px);
-	outline: 0;
-	border: 0px;
-	background: transparent;
-}
-*/
-.crossword[type="text"] {
-	font-size: 18px;
-	text-align: center;
-	width: calc(0vmin + 60px);
-	height:  calc(0vmin + 60px);
+@import url('button.css');
+
+/*外枠レイアウト*/
+body {
+	padding: 10px;
+	background-image: url('/photo/background.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
 }
 
-#enp.crossword{
-	background-color: #000000;
-}
-ul{
-	list-style:none;
+header, #body {
+	width: 860px;
+	margin: 0 auto 0 auto;
 }
 
-#row ul li{
-    display: inline;
- }
+img{
+	width: 100%;
+}
 
+#body {
+		height: 680px;
+	    background-color: white;
+}
+
+#main{
+    padding: 10px;
+    text-align: center;
+}
+
+/*見直し要*/
+ul {
+	list-style: none;
+}
