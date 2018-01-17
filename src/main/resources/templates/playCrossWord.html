@@ -15,7 +15,7 @@
 		<form action="play/check" method="get">
 			<!-- クロスワード出力部 -->
 			<section class="crossword" id="main">
-				<p><span>00:00</span></p>
+				<p id ="time"><span>00:00</span></p>
 				<ul id="table">
 				<li th:each="wordlist, row : ${h_from.crossWord_list}">
 					<div id="row"><ul>
