@@ -1,24 +1,41 @@
 ﻿@charset "utf-8";
+
 @import url('common.css');
 
 /* [クロスワード(play)]基本設定ここから↓*/
-.crossword{
+.CrossWordPlaying {
+		background-image: url('/photo/CrossWord/background_01.jpg');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+}
+
+.crossword {
 	display: inline-block;
 }
 /* [クロスワード(play)]基本設定ここまで↑ */
 
 /* [クロスワード(play)]タイマー出力 ここから↓ */
-#time{
+#time {
+	padding-left: 50px;
 	text-align: left;
-	padding-left:50px;
 }
 
 /* [クロスワード(play)]タイマー出力 ここまで↑ */
 
 /* [クロスワード(play)]問題出力ここから↓ */
+#main #sub {
+	float: left;
+}
+
 .crossword[type="text"] {
+	width: calc(0vmin + 60px);
+	height: calc(0vmin + 60px);
 	font-size: 18px;
 	text-align: center;
+}
+
+li #dummy {
 	width: calc(0vmin + 60px);
 	height: calc(0vmin + 60px);
 }
@@ -33,36 +50,47 @@
 }
 
 #row ul li {
-	display: inline-block;
+	float: left;
 }
 
 /* [クロスワード(home)]問題出力ここまで↑ */
 
 /* [クロスワード(play)]ヒント出力ここから↓ */
-#sub{
-	height:580px;
-	padding-top:50px;
+#sub {
+	height: 580px;
+	padding-top: 50px;
 }
 
-#hint ul{
-	padding:0;
-
+#hint ul {
+	padding: 0;
 }
 
-.hint{
-	float:left;
-	width:180px;
-	height:330px;
+.hint {
+	width: 180px;
+	height: 330px;
+	padding: 2px;
+	margin: 5px;
+	float: left;
+	color: #565656;
 	background-color: white;
-	border: solid 2px #4ec4d3;
+	box-shadow: 0px 0px 0px 2px #ffeaea;
+	border: dashed 2px #ffc3c3;
+	border-radius: 8px;
+	text-align: center;
 }
 
-.hint:first-child{
-	border-left:solid 2px #4ec4d3;
+.hintList {
+	padding: 2px;
+	margin: 10px;
+	color: #565656;
+	background: #ffeaea;
+	box-shadow: 0px 0px 0px 2px #ffeaea;
+	border: dashed 2px #ffc3c3;
+	border-radius: 8px;
+	text-align: center;
 }
 
-ul#keycol{
-	padding-left:40px;
+ul#keycol {
+	padding-left: 40px;
 }
 /* [クロスワード(play)]ヒント出力ここまで↑ */
-

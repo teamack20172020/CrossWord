@@ -4,6 +4,17 @@ var PassSec;
 var PassageID;
 
 $(function(){
+	//背景画像をランダムに決定
+	var url=[];
+	url[0] = '01.jpg';
+	url[1] = '02.jpg';
+	url[2] = '03.jpg';
+	url[3] = '04.jpg';
+	url[4] = '05.jpg';
+	var n = Math.floor(Math.random() * url.length);
+	var elm = document.getElementById('body');
+	elm.style.backgroundImage = 'url(/photo/CrossWord/background_' + url[n] + ')';
+
 	//クロスワード出力部生成処理
 	var h;
 	var width = $("#width").val();
@@ -17,27 +28,23 @@ $(function(){
 		h='<li><div id="row"><ul>'
 			for(var j=0;j < width;j++){
 				var index = (i * width) +j;
-				h += '<li><input class="crossword" type="text" ';
+				h += '<li id="dummy"><input class="crossword" ';
 				if(item[i*height+j]=="■"){
-					h+= 'maxlength="0" id="enp" value="';
+					h+= 'type="hidden" maxlength="0" id="enp" value="';
 					h+= item[i*height+j];
 				}else{
-					h+= 'maxlength="1" id="noenp" value="';
+					h+= 'type="text" maxlength="1" id="noenp" value="';
 					if(item[i*height+j]!="□"){
 						h+= item[i*height+j];
 					}
 				}
 				h+= '" name="crossWord_res[';
 				h+= index;
-				h+= ']" ></input></li>';
+				h+= ']" ondrop="f_drop(event)"></input></li>';
 			}
 		h +='</ul></div></li>';
 		ul.append(h);
 	}
-
-	//ヒント出力部生成処理
-
-
 
 	// タイマーの初期化と実行(1000ms間隔)
 	PassSec = Number($("#time").val());
