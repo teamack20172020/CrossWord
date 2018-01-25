@@ -101,7 +101,7 @@ public class CreateService{
 		}
 
 		//配置可能方向を取得
-		ArrayList<Direction> rootList  = new ArrayList<Direction>();
+		ArrayList<Direction> rootList = new ArrayList<Direction>();
 		rs.getRootList(start,flg,rootList,temp);
 
 		//配置可能方向の存在チェック
@@ -192,10 +192,10 @@ public class CreateService{
 	}
 
 	/**
-	 * @param str   :確認対象文字列
-	 * @param start :比較開始位置
-	 * @param next  :比較位置移動係数
-	 * @param max   :比較終了位置
+	 * @param str  :確認対象文字列
+	 * @param start:比較開始位置
+	 * @param next :比較位置移動係数
+	 * @param max  :比較終了位置
 	 * @param temp
 	 * @retur 比較結果：成功[true] 失敗[false]
 	 */
@@ -216,7 +216,7 @@ public class CreateService{
 	 * @return 文字使用率
 	 */
 	private int getUtilization(template temp){
-		String strAll = temp.getTemplateToString().replace(temp.getEmpty(), temp.getNoempty());
+		String strAll = temp.getTemplateToString();
 		strAll = strAll.replace(temp.getSp2(),"");
 		String strEmp = strAll.replace(temp.getNoempty(), "");
 		double numAll = strAll.length();

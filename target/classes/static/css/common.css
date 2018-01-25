@@ -6,7 +6,7 @@
 /*外枠レイアウト*/
 body {
 	padding: 10px;
-	background-image: url('/photo/background.jpg');
+	background-image: url('/photo/background_02.jpg');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -23,7 +23,7 @@ img{
 }
 
 #body {
-		height: 680px;
+		height: 600px;
 	    background-color: white;
 }
 

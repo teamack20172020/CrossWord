@@ -1,7 +1,7 @@
 ﻿@charset "utf-8";
 @import url('common.css');
 
-/* [クロスワード(play)(play)]基本設定ここから↓*/
+/* [クロスワード(play)]基本設定ここから↓*/
 .crossword{
 	display: inline-block;
 }
@@ -39,12 +39,30 @@
 /* [クロスワード(home)]問題出力ここまで↑ */
 
 /* [クロスワード(play)]ヒント出力ここから↓ */
-.hint{
-	float:left;
+#sub{
+	height:580px;
+	padding-top:50px;
 }
 
-.hint ul li{
-	padding:10px;
+#hint ul{
+	padding:0;
+
+}
+
+.hint{
+	float:left;
+	width:180px;
+	height:330px;
+	background-color: white;
+	border: solid 2px #4ec4d3;
+}
+
+.hint:first-child{
+	border-left:solid 2px #4ec4d3;
+}
+
+ul#keycol{
+	padding-left:40px;
 }
 /* [クロスワード(play)]ヒント出力ここまで↑ */
 

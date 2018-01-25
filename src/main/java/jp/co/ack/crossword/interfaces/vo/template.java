@@ -21,6 +21,8 @@ public class template{
 	private int height;
 	//初期開始可能位置リスト[上下左右の四隅]
 	private int[] enptylist;
+	//クロスワード文字列
+	private String templateToString;
 	//クロスワード配列
 	private String[] template;
 
@@ -229,6 +231,5 @@ public class template{
 	public void deleteWordlist(Word word) {
 		this.wordlist.remove(wordlist.indexOf(word));
 	}
-
 
 }

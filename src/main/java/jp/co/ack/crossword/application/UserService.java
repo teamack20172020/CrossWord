@@ -60,12 +60,16 @@ public class UserService {
 	 * ユーザー登録処理
 	 *
 	 */
-	public void saveUser(Date now){
+	public void saveUser(Date now,Boolean flg){
 		try {
 			User user = new User();
 			user.setMissCnt(0);
 			user.setCreated(now);
-			user.setPlayTime(System.currentTimeMillis());
+			if(flg){
+				user.setPlayTime(System.currentTimeMillis());
+			}else{
+				user.setPlayTime(System.currentTimeMillis());
+			}
 			userRepository.save(user);
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
@@ -77,12 +81,10 @@ public class UserService {
 	 * ユーザー更新処理
 	 *
 	 */
-	public void updateUser(User user,boolean res){
+	public void updateUser(int id,long time,boolean res){
+		User user = getUserById(id);
 		user.setMissCnt(user.getMissCnt()+1);
-		if(res){
-			long end = System.currentTimeMillis();
-			user.setPlayTime(end-user.getPlayTime());
-		}
+		user.setPlayTime(time);
 		userRepository.save(user);
 	}
 
@@ -102,16 +104,6 @@ public class UserService {
 		}
 		return datetime;
 	}
-
-	/*	@Override
-	public Mst loadUserByUsername(String username) throws UsernameNotFoundException {
-		Mst user = getUserById(username);
-		if (user == null || !user.getId().equals(username)) {
-			log.info("Mst not found: " + username);
-			throw new UsernameNotFoundException("Mst not found: " + username);
-		}
-		return user;
-	}*/
 
 	/**
 	 * ユーザー検索処理

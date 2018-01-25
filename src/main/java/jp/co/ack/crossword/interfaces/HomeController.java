@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.ack.crossword.application.CreateService;
 import jp.co.ack.crossword.application.PlayService;
-import jp.co.ack.crossword.application.TestService;
 import jp.co.ack.crossword.application.UserService;
 
 @Controller
@@ -22,8 +21,6 @@ public class HomeController {
 
 	@Autowired
 	PlayService playService;
-	@Autowired
-	TestService testService;
 
 	/**
 	 * トップぺージ

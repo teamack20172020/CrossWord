@@ -1,6 +1,11 @@
 ﻿/*ボタンレイアウト*/
 @charset "utf-8";
 
+/*ボタンの位置*/
+#button-center{
+	clear:both;
+}
+
 /*中央表示*/
 #button-center {
 	padding:10px;
@@ -8,9 +13,6 @@
 	font-weight: bold;
 }
 
-:hover{
-		#cc0000
-}
 /*左表示*/
 #button-left {
 	padding:10px;
@@ -28,6 +30,17 @@
 /*サイズ[大]*/
  .button-big{
 	font-size:52px;
+	padding: 10px 20px;
+	background-position:center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size:cover;
+	text-decoration: none;
+}
+
+/*サイズ[大]*/
+.button-middle{
+	font-size:32px;
 	padding: 10px 20px;
 	background-position:center;
 	background-repeat: no-repeat;

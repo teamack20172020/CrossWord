@@ -5,9 +5,7 @@
 		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
 	</head>
 	<body th:object="${h_from}">
-		<header>
-			<div th:replace="common/header::header"></div>
-		</header>
+		<div th:replace="common/header::header"></div>
 		<div id="body">
 		<form action="play/check" method="get">
 			<section class="crossword" id="main">

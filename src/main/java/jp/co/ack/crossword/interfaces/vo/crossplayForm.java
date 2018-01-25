@@ -6,84 +6,130 @@ import jp.co.ack.crossword.domain.User.User;
 import jp.co.ack.crossword.domain.Word.Word;
 
 public class crossplayForm{
-	private User user;
-	private template temp;
+	private int width;
+	private int height;
+	private long time;
 	private String crossWord;
 	private String crossWord_wk;
-	//private ArrayList<ArrayList<String>> crossWord_list = new  ArrayList<ArrayList<String>>();
-	private String[][] crossWord_list;
-
-	//配値済み単語リスト(横方向)
+	private String[] crossWord_res;
 	private ArrayList<Word> wordListCol = new ArrayList<Word>();
-
-	//配値済み単語リスト(縦方向)
 	private ArrayList<Word> wordListRow = new ArrayList<Word>();
 
-	public void ini(User user,template temp){
+	private User user = new User();
 
-		/*初期値の設定*/
-		this.user = user;
-		this.temp = temp;
-		this.wordListCol = temp.getWordListCol();
-		this.wordListRow = temp.getWordListRow();
-		this.crossWord = temp.getTemplateToString();
-		this.crossWord_list = new String[temp.getHeight()][temp.getWidth()];
-
-		String[] strlist = temp.getTemplateToString().split(temp.getSp2());
-		setCrossWord_list_ini(strlist);
+	public int getWidth() {
+		return width;
 	}
 
-	public void setCrossWord_wk(String[] str) {
-		this.crossWord_wk = "," + str[0];
-		for(int i = 1;i < temp.getSize();i++){
-			this.crossWord_wk = "," + str[i];
-		}
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
-	public void setCrossWord_list(String[][] str) {
-		this.crossWord_list = str;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setCrossWord_list_ini(String[] str) {
-		for(int i = 0; i < temp.getHeight();i++){
-			for(int j = 0; j < temp.getWidth();j++){
-				int index = i * temp.getWidth() + j;
-				String str_wk = str[index];
-				if(!str_wk.equals(temp.getNoempty())){
-					str_wk = "";
-				}
-				this.crossWord_list[i][j] = str_wk;
-			}
-		}
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
-	public User getUser() {
-		return user;
+	public long getTime() {
+		return time;
 	}
 
-	public template getTemp() {
-		return temp;
+	public void setTime(long time) {
+		this.time = time;
 	}
-
 	public String getCrossWord() {
 		return crossWord;
+	}
+
+	public void setCrossWord(String crossWord) {
+		this.crossWord = crossWord;
 	}
 
 	public String getCrossWord_wk() {
 		return crossWord_wk;
 	}
 
-	public String[][] getCrossWord_list() {
-		return crossWord_list;
+	public void setCrossWord_wk(String crossWord_wk) {
+		this.crossWord_wk = crossWord_wk;
 	}
 
-
-	/*	public ArrayList<ArrayList<String>> getCrossWord_list() {
-		return crossWord_list;
+	public String[] getCrossWord_res() {
+		return crossWord_res;
 	}
 
-	public void setCrossWord_list(ArrayList<ArrayList<String>> crossWord_list) {
-		this.crossWord_list = crossWord_list;
-	}*/
+	public void setCrossWord_res(String[] crossWord_res) {
+		this.crossWord_res = crossWord_res;
+	}
+
+	public ArrayList<Word> getWordListCol() {
+		return wordListCol;
+	}
+
+	public void setWordListCol(ArrayList<Word> wordListCol) {
+		this.wordListCol = wordListCol;
+	}
+
+	public ArrayList<Word> getWordListRow() {
+		return wordListRow;
+	}
+
+	public void setWordListRow(ArrayList<Word> wordListRow) {
+		this.wordListRow = wordListRow;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getStrCro_reload(String[] str,template temp){
+		String crossWord = temp.getEmpty();
+
+		if(str[0] != null){
+			crossWord = str[0];
+		}
+
+		for(int i = 1; i < str.length;i++){
+			if(str[i] != null){
+				crossWord += "," + str[i];
+			}else{
+				crossWord += "," + temp.getEmpty();
+			}
+		}
+		return crossWord;
+	}
+
+	public String getStrCro(template temp){
+
+		String[] str = temp.getTemplateToString().split(",");
+
+		for(int i = 0; i < str.length;i++){
+			if(!str[i].equals(temp.getNoempty())){
+				str[i] = temp.getEmpty();
+			}
+		}
+
+		String crossWord = str[0];
+		for(int i = 1; i < str.length;i++){
+			crossWord += "," + str[i];
+		}
+
+		return crossWord;
+	}
+
+	public void setini(template temp,String str,long time){
+		this.time = time;
+		this.width = temp.getWidth();
+		this.height = temp.getHeight();
+		this.wordListCol = temp.getWordListCol();
+		this.wordListRow = temp.getWordListRow();
+		this.crossWord_wk = str;
+	}
 
 }
