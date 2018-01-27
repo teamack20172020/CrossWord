@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,10 +82,9 @@ public class UserService {
 	 * ユーザー更新処理
 	 *
 	 */
-	public void updateUser(int id,long time,boolean res){
-		User user = getUserById(id);
-		user.setMissCnt(user.getMissCnt()+1);
-		user.setPlayTime(time);
+	public void updateUser(User user,boolean res){
+		//更新日付のセット
+		user.setUpdated(getDate());
 		userRepository.save(user);
 	}
 
@@ -92,7 +92,7 @@ public class UserService {
 	 * ユーザー更新処理
 	 *
 	 */
-	public Date getCreateDate(){
+	public Date getDate(){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date datetime = new Date();
 		try {
@@ -103,6 +103,30 @@ public class UserService {
 			System.out.println(e);
 		}
 		return datetime;
+	}
+
+	/**
+	 * ユーザー検索処理
+	 * (ランキング表示用)
+	 * @param userId
+	 * @param passWord
+	 * @param email
+	 */
+	public List<User> getRankUsers() {
+		StringBuffer strUsersearchSQL = new StringBuffer();
+		strUsersearchSQL.append("select ");
+		strUsersearchSQL.append("user.* ");
+		strUsersearchSQL.append("from ");
+		strUsersearchSQL.append("user ");
+		strUsersearchSQL.append("order by user.score desc ");
+		strUsersearchSQL.append("limit 10 ");
+		System.out.println(strUsersearchSQL.toString());
+		// クエリの生成
+		Query q = entityManager.createNativeQuery(strUsersearchSQL.toString(), User.class);
+		// 抽出
+		@SuppressWarnings("unchecked")
+		List<User> users = q.getResultList();
+		return users;
 	}
 
 	/**

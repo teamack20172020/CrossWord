@@ -2,14 +2,20 @@ package jp.co.ack.crossword.interfaces.vo;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import jp.co.ack.crossword.config.ApplicationConfig;
 import jp.co.ack.crossword.domain.Word.Word;
 
 public class template{
 
-	private String empty = "□";
-	private String noempty = "■";
-	private String sp1 = "\r\n";
-	private String sp2 = ",";
+	@Autowired
+	ApplicationConfig config;
+
+	private String empty;
+	private String noempty;
+	private String sp1;
+	private String sp2;
 
 	//マス目総数
 	private int size;
@@ -49,6 +55,10 @@ public class template{
 
 	//初期値の設定
 	public template(int width, int height){
+		this.empty = config.GAME_CROSSWORD_EMPTY;
+		this.noempty = config.GAME_CROSSWORD_NOEMPTY;
+		this.sp1 = config.SPLIT_CRLF;
+		this.sp2 = config.SPLIT_COMMA;
 		this.width = width;
 		this.height = height;
 		this.size = width * height;

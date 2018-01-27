@@ -1,14 +1,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>とっぷ</title>
+		<title>ランキング</title>
 		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
 	</head>
-	<body th:object="${h_from}">
+	<body>
 		<div th:replace="common/header::header"></div>
 		<div id="body">
 		<form action="play/check" method="get">
 			<section class="crossword" id="main">
+				<div class="rank" id="center">
+					<p>ランキング<br /></p>
+						<table>
+							<thead>
+								<tr>
+									<th th:text="順位"></th>
+									<th th:text="ユーザー名"></th>
+									<th th:text="スコア"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user,in : ${h_rankUsers}">
+									<td th:text="${in.index}"></td>
+									<td th:text="${user.name}"></td>
+									<td th:text="${user.score}"></td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
 			</section>
 			<section class="crossword" id="hint">
 			</section>

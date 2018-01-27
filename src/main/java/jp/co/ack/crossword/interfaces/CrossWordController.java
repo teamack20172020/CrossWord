@@ -1,6 +1,7 @@
 package jp.co.ack.crossword.interfaces;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.ack.crossword.application.CreateService;
 import jp.co.ack.crossword.application.PlayService;
+import jp.co.ack.crossword.application.ScoreService;
 import jp.co.ack.crossword.application.UserService;
 import jp.co.ack.crossword.domain.User.User;
 import jp.co.ack.crossword.interfaces.vo.crossplayForm;
@@ -24,11 +26,15 @@ import jp.co.ack.crossword.interfaces.vo.template;
 public class CrossWordController {
 
 	@Autowired
-	UserService userService;
+	PlayService playService;
 	@Autowired
 	CreateService createService;
+
+
 	@Autowired
-	PlayService playService;
+	UserService userService;
+	@Autowired
+	ScoreService scoreService;
 
 	@Autowired
 	HttpSession session;
@@ -69,7 +75,7 @@ public class CrossWordController {
 			str = j_from.getStrCro(j_temp);
 
 			//新規ユーザー登録・取得
-			Date datetime = userService.getCreateDate();
+			Date datetime = userService.getDate();
 			userService.saveUser(datetime,true);
 			j_user = userService.getUserByCreated(datetime);
 			userId = j_user.getId();
@@ -99,11 +105,16 @@ public class CrossWordController {
 
 		//セッションの取得
 		template j_temp = (template) session.getAttribute("template");
+
+		User user = userService.getUserById(j_from.getUser().getId());
+		user.setMissCnt(user.getMissCnt()+1);
+		user.setPlayTime(j_from.getTime());
 		//解答の確認
 		boolean res = playService.checkCrossWord(j_from,j_temp);
-		System.out.println(j_from.getTime());
-		userService.updateUser(j_from.getUser().getId(),j_from.getTime(),res);
 		if(res){
+			int score = scoreService.getCrosswordScore(j_from.getUser());
+			user.setScore(score);
+			attributes.addFlashAttribute("userId",j_from.getUser().getId());
 			url = "redirect:/crossword/play/rank";
 		}else{
 			String str = j_from.getStrCro_reload(j_from.getCrossWord_res(),j_temp);
@@ -111,6 +122,9 @@ public class CrossWordController {
 			attributes.addFlashAttribute("userId",j_from.getUser().getId());
 			url = "redirect:/crossword/play";
 		}
+
+		userService.updateUser(user,res);
+
 		return url;
 	}
 
@@ -118,11 +132,16 @@ public class CrossWordController {
 	 * クロスワードランキング表示
 	 */
 	@GetMapping("play/rank")
-	public ModelAndView rank() {
+	public ModelAndView rank(Model model) {
+		//ランキングの取得
+		//int userId = (int) model.asMap().get("userId");
+		List<User> j_rankUsers = userService.getRankUsers();
 		//セッションクリア
 		session.invalidate();
 		//ページの描画
 		ModelAndView mav = new ModelAndView("rankCrossWord");
+		mav.addObject("h_rankUsers", j_rankUsers);
+
 		return mav;
 	}
 }
