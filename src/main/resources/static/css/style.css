@@ -16,9 +16,15 @@
 /* [クロスワード(play)]基本設定ここまで↑ */
 
 /* [クロスワード(play)]タイマー出力 ここから↓ */
-#time {
-	padding-left: 50px;
-	text-align: left;
+p#PassageArea {
+	height: 40px;
+	margin: 20px 0 15px 0;
+	padding: 10px;
+	font-size: 25px;
+	background-image: url('/photo/CrossWord/time2.png'); background-repeat
+	: no-repeat;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
 /* [クロスワード(play)]タイマー出力 ここまで↑ */
@@ -26,6 +32,10 @@
 /* [クロスワード(play)]問題出力ここから↓ */
 #main #sub {
 	float: left;
+}
+
+#main {
+	margin-left: 10px;
 }
 
 .crossword[type="text"] {
@@ -57,15 +67,19 @@ li #dummy {
 
 /* [クロスワード(play)]ヒント出力ここから↓ */
 #sub {
-	height: 580px;
-	padding-top: 50px;
+	text-align: center;
+}
+
+.crossword#sub {
 	background-image: url('/photo/CrossWord/kanban02.png');
-	background-size: 100% 100%;
+	background-size: 100% 95%;
 	background-repeat: no-repeat;
-	background-position: center center;
 	text-align: center;
 	background-repeat: no-repeat;
 	background-position: center top;
+	float: right;
+	width: 430px;
+	height: 580px;
 }
 
 #hint ul {
@@ -75,11 +89,10 @@ li #dummy {
 .hint {
 	width: 180px;
 	height: 330px;
-	padding: 2px;
-	margin: 5px;
+	padding: 1px;
 	float: left;
 	color: #565656;
-	background-color: white;
+	background-color: #fffaf0;
 	box-shadow: 0px 0px 0px 2px #ffeaea;
 	border: dashed 2px #ffc3c3;
 	border-radius: 8px;
@@ -87,6 +100,19 @@ li #dummy {
 	box-shadow: 0px 0px 0px 2px #ffeaea;
 	border: dashed 2px #ffc3c3;
 	border-radius: 8px;
+	margin: 3px;
+	margin-top: 95px;
+	background-image: url('/photo/CrossWord/pin.png');
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+.hint#left {
+	margin-left: 20px;
+}
+
+.hint p {
+	border-bottom: dashed 2px #ffc3c3;
 }
 
 .hintList {
@@ -103,4 +129,81 @@ li #dummy {
 ul#keycol {
 	padding-left: 40px;
 }
+
 /* [クロスワード(play)]ヒント出力ここまで↑ */
+
+/* [クロスワード(rank)]基本設定ここから↓ */
+.ranking#main {
+	background-image: url('/photo/CrossWord/kanban3.png');
+	background-repeat: no-repeat;
+	background-position: 50px -30px;
+	height: 500px;
+}
+
+.ranking#sub {
+	height: 0;
+}
+
+.ranking#center {
+	height: 500px;
+	overflow: hidden;
+}
+
+#rankTable {
+	width: 500px;
+	margin: 0 auto 0 auto;
+	font-size: 120%;
+	padding: 10px;
+	border-collapse:collapse;
+	margin-top:50px;
+}
+
+#rankTable caption figure{
+	margin:0;
+}
+#rankTable caption img{
+	width:300px;
+	height:80px;
+}
+
+#rankTable td,#rankTable th{
+	border: 1px solid #999999;
+}
+#rankTable thead{
+	background-color:#573939;
+	color:#eee6de;
+}
+#rankTable tbody:nth-of-type(-n+3){
+	background-image:url('/photo/CrossWord/star.png');
+	background-repeat:no-repeat;
+}
+#rankTable tbody:nth-of-type(1){
+	color:#ffd700;
+
+}
+#rankTable tbody:nth-of-type(2){
+	color:#c0c0c0;
+}
+#rankTable tbody:nth-of-type(3){
+	color:#815a2b;
+}
+#rankTable tbody{
+	background-color:#ffffff;
+}
+#rankTable tbody:nth-of-type(even){
+	background-color:#f5f3f3;
+}
+
+#rankuser{
+	background-color: #c3e943;
+}
+
+#rank,#user {
+	text-align: center;
+}
+
+#score {
+	text-align: right;
+}
+
+/* [クロスワード(rank)]基本設定ここまで↑ */

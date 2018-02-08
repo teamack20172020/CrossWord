@@ -8,10 +8,13 @@
 		<div th:replace="common/header::header"></div>
 		<div id="body">
 		<form action="play/check" method="get">
-			<section class="crossword" id="main">
-				<div class="rank" id="center">
-					<p>ランキング<br /></p>
-						<table>
+			<section class="ranking" id="main">
+				<div class="ranking" id="center">
+
+						<table id="rankTable">
+							<caption>
+							<img src=" ../../photo/CrossWord/rank.png" alt="ランキング" ></img>
+							</caption>
 							<thead>
 								<tr>
 									<th th:text="順位"></th>
@@ -19,25 +22,31 @@
 									<th th:text="スコア"></th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr th:each="user,in : ${h_rankUsers}">
-									<td th:text="${in.index}"></td>
-									<td th:text="${user.name}"></td>
-									<td th:text="${user.score}"></td>
+							<tbody th:each="user,in : ${h_rankUsers}">
+								<tr class="rank" th:if="${user.id == userId}" id="rankuser">
+									<td id="rank" th:text="${in.index}+1"></td>
+									<td id="user" th:text="${user.name}"></td>
+									<td id="score" th:text="${user.score}"></td>
+								</tr>
+								<tr th:if="${user.id != userId}" id="dummy">
+									<td id="rank" th:text="${in.index}+1"></td>
+									<td id="user" th:text="${user.name}"></td>
+									<td id="score" th:text="${user.score}"></td>
 								</tr>
 							</tbody>
 						</table>
 				</div>
 			</section>
-			<section class="crossword" id="hint">
+			<section class="ranking" id="sub">
+				<div id="button-center">
+					<p>
+					<a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword}">戻る</a>
+					</p>
+				</div>
 			</section>
-			<div id="button-center">
-				<p>
-				<a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword}">戻る</a>
-				</p>
-			</div>
 		</form>
 		</div>
+
 		<footer>
 		</footer>
 	</body>
