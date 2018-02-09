@@ -18,24 +18,18 @@ header, #body {
 	margin: 0 auto 0 auto;
 }
 
-#main h1{
-	margin:0;
-	height:400px;
-	 position: relative; z-index: 2;
-}
 img{
-	width:100%;
+	width: 85%;
 }
 
 #body {
-		width:860px;
-		height: 580px;
-	    background-image:url('/photo/CrossWord/background_01.jpg');
+		height: 600px;
+	    background-color: white;
 }
 
 #main{
+    padding: 10px;
     text-align: center;
-    height:400px;
 }
 
 /*見直し要*/

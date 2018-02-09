@@ -110,10 +110,3 @@
 #button-tedukuri-yellow:hover {
 	background: url("/photo/CrossWord/buttontedukuriyelow02.gif");
 }
-
-#button-ita{
-	position: relative; top: -100px; z-index:1;
-}
-#button-ita:hover{
-	 transform:translateY(30px);
-}

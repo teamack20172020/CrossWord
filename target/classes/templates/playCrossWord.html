@@ -17,9 +17,8 @@
 			<input id='time' name="time" type="hidden" th:value="*{time}" />
 			<input id='userId' name='user.id' type="hidden" th:value="${h_user.id}" />
 			<!-- クロスワード出力部 -->
-
-			<section class="crossword" id="main">
 			<p id="PassageArea" th:text="'経過時間：' +  *{time} + '秒'"></p>
+			<section class="crossword" id="main">
 				<div id="table"></div>
 			</section>
 			<!-- ヒント出力部 -->
