@@ -23,14 +23,15 @@ header, #body {
 	height:400px;
 	 position: relative; z-index: 2;
 }
-#main h1 img{
+img{
 	width:100%;
 }
 
 #body {
 		width:860px;
-		height: 580px;
+		height: 560px;
 	    background-image:url('/photo/CrossWord/background_01.jpg');
+	    backgrund-repeat:no-repeat;
 }
 
 #main{

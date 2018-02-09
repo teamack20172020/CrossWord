@@ -21,8 +21,8 @@ p#PassageArea {
 	margin: 20px 0 15px 0;
 	padding: 10px;
 	font-size: 25px;
-	background-image: url('/photo/CrossWord/time2.png'); background-repeat
-	: no-repeat;
+	background-image: url('/photo/CrossWord/time2.png');
+	background-repeat:no-repeat;
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
@@ -89,22 +89,11 @@ li #dummy {
 .hint {
 	width: 180px;
 	height: 330px;
-	padding: 1px;
 	float: left;
 	color: #565656;
-	background-color: #fffaf0;
-	box-shadow: 0px 0px 0px 2px #ffeaea;
-	border: dashed 2px #ffc3c3;
-	border-radius: 8px;
-	text-align: center;
-	box-shadow: 0px 0px 0px 2px #ffeaea;
-	border: dashed 2px #ffc3c3;
-	border-radius: 8px;
-	margin: 3px;
-	margin-top: 95px;
-	background-image: url('/photo/CrossWord/pin.png');
 	background-repeat: no-repeat;
 	background-position: left top;
+	margin-top:95px;
 }
 
 .hint#left {
@@ -112,7 +101,12 @@ li #dummy {
 }
 
 .hint p {
-	border-bottom: dashed 2px #ffc3c3;
+	background-image:url('/photo/CrossWord/ribbon_white.png');
+	background-size:100% 100%;
+	background-position:center -0px;
+	margin:0;
+	height:50px;
+	padding-top:15px;
 }
 
 .hintList {
@@ -173,9 +167,12 @@ ul#keycol {
 	background-color:#573939;
 	color:#eee6de;
 }
+#rankTable tbody:nth-of-type(-n+3){
+	background-image:url('/photo/CrossWord/star.png');
+    background-repeat:no-repeat;
+}
 #rankTable tbody:nth-of-type(1){
 	color:#ffd700;
-	background-image:url('/photo/CrossWord/star.png');
 }
 #rankTable tbody:nth-of-type(2){
 	color:#c0c0c0;
