@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>とっぷ</title>
+		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
+	</head>
+	<body th:object="${h_from}">
+		<div th:replace="common/header::header"></div>
+		<div id="body">
+		<form action="test/next" method="get">
+			<section class="crossword" id="main">
+			<input type="text"></input>
+			</section>
+			<div id="button-center">
+				<input type="submit" value="登録"></input>
+			</div>
+		</form>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>

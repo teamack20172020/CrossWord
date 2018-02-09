@@ -11,7 +11,7 @@ import jp.co.ack.crossword.domain.Word.WordRepository;
 import jp.co.ack.crossword.interfaces.vo.template;
 
 @Service
-class WordService {
+public class WordService {
 
 	@Autowired
 	WordRepository wrep;
