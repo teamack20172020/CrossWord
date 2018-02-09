@@ -5,106 +5,108 @@
 
 /*中央表示*/
 #button-center {
-	padding:10px;
+	padding: 10px;
 	text-align: center;
 	font-weight: bold;
-	clear:both;
+	clear: both;
 }
 
 /*左表示*/
 #button-left {
-	padding:10px;
+	padding: 10px;
 	text-align: left;
 	font-weight: bold;
-	clear:both;
+	clear: both;
 }
 
 /*右表示*/
 #button-right {
-	padding:10px;
+	padding: 10px;
 	text-align: right;
 	font-weight: bold;
-	clear:both;
+	clear: both;
 }
 
 /*サイズ[大]*/
-.button-big{
-	font-size:52px;
+.button-big {
+	width: 30%;
+	height: 15%;
 	padding: 10px 20px;
-	background-position:center;
 	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size:cover;
-	text-decoration: none;
+	background-position: center center;
 }
 
 /*サイズ[中]*/
-.button-middle{
-	font-size:32px;
+.button-middle {
+	font-size: 32px;
 	padding: 10px 20px;
-	background-position:center;
+	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	background-size:cover;
+	background-size: cover;
 	text-decoration: none;
 }
 
 /*色[オレンジ色]*/
-#button-orange{
-	background-image:url('/photo/button/btn_02.png');
+#button-orange {
+	background-image: url('/photo/button/btn_02.png');
 }
-#button-orange:hover{
-	background-image:url('/photo/button/btn_01.png');
+
+#button-orange:hover {
+	background-image: url('/photo/button/btn_01.png');
 }
 
 /*色[黄色]*/
-#button-yellow{
-	background-image:url('/photo/button/btn_03.png');
+#button-yellow {
+	background-image: url('/photo/button/btn_03.png');
 }
-#button-yellow:hover{
-	background-image:url('/photo/button/btn_02.png');
+
+#button-yellow:hover {
+	background-image: url('/photo/button/btn_02.png');
 }
 
 /*色[水色]*/
-#button-skyblue{
-	background-image:url('/photo/button/btn_05.png');
+#button-skyblue {
+	background-image: url('/photo/button/btn_05.png');
 }
-#button-skyblue:hover{
-	background-image:url('/photo/button/btn_04.png');
+
+#button-skyblue:hover {
+	background-image: url('/photo/button/btn_04.png');
 }
 
 /*色[桃色]*/
-#button-pink{
-	background-image:url('/photo/button/btn_06.png');
+#button-pink {
+	background-image: url('/photo/button/btn_06.png');
 }
-#button-pink:hover{
-	background-image:url('/photo/button/btn_01.png');
+
+#button-pink:hover {
+	background-image: url('/photo/button/btn_01.png');
 }
 
 /*色[白色]*/
-#button-white{
-	background-image:url('/photo/button/btn_07.png');
+#button-white {
+	background-image: url('/photo/button/btn_07.png');
 }
-#button-white:hover{
-	background-image:url('/photo/button/btn_08.png');
+
+#button-white:hover {
+	background-image: url('/photo/button/btn_08.png');
 }
 
 /**/
 #button-coreful {
-	background:url("/photo/button/tedukuri01.gif");
+	background: url("/photo/CrossWord/tedukuri01.gif");
 }
-#button-coreful:hover{
-	background: url("/photo/button/tedukuri2.gif");
+
+#button-coreful:hover {
+	background: url("/photo/CrossWord/tedukuri2.gif");
 }
 
 /**/
 #button-tedukuri-yellow {
-	background: url("/photo/button/tedukuriyelow01.gif");
+	background: url("/photo/CrossWord/tedukuriyelow01.gif");
 	width: 220px;
 }
 
-#button-tedukuri-yellow:hover{
-	background: url("/photo/button/buttontedukuriyelow02.gif");
+#button-tedukuri-yellow:hover {
+	background: url("/photo/CrossWord/buttontedukuriyelow02.gif");
 }
-
-
