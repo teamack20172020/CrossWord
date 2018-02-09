@@ -8,17 +8,16 @@
 	<body>
 		<div th:replace="common/header::header"></div>
 		<div id="body">
-		<form action="play/check" method="get">
+        <form th:action="|/crossword/play|" method="get">
 		<section id="main">
 			<h1>
-				<img src="../photo/CrossWord/logo.png" alt="logo" width="1080px"></img>
+                <img src="../photo/CrossWord/title.png" alt="logo" width="1080px"></img>
 			</h1>
 		</section>
-		<div id="button-center">
-			<p>
-			<a class="button-big" id="button-pink" href="crossword/play" th:href="@{/crossword/play}">スタート</a>
-			</p>
-		</div>
+            <div id="button-center">
+                <input  id="button-ita" type="image" src="../photo/button/start.png" value="" onclick="stopShowing();" />
+            </div>
+
 		</form>
 		</div>
 	</body>
