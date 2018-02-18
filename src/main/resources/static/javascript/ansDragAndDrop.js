@@ -25,19 +25,28 @@ function f_drop(event){
 
 	//次回配置位置を設定
 	var next = 1;
+	var check = 0;
+	var check_wk = 1;
+	var index = parseInt(drop_index);
+
 	if(drag_name=="row"){
-		next =  parseInt($("#width").val());
+		next = parseInt($("#width").val());
+		check_wk =  parseInt($("#width").val());
+		check = (index) / check_wk;
 	}else{
-		next =  parseInt($("#height").val());
+		check_wk =  parseInt($("#height").val());
+		check = (index) % check_wk;
 	}
 
+
+
+
+
 	//配置可能かチェック
+
 	var res = 0;
-	var index = parseInt(drop_index);
-	var check = (index+1) % next;
-	alart(check);
 	for(var i = 0; i < str.length; i++) {
-		if(check > next){	
+		if(check > check_wk){
 			res = -1;
 			break;
 		}

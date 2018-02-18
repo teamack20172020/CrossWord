@@ -2,6 +2,7 @@ package jp.co.ack.crossword.application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jp.co.ack.crossword.domain.Crosswordplay.Crosswordplay;
 import jp.co.ack.crossword.domain.User.User;
 import jp.co.ack.crossword.domain.User.UserRepository;
+import jp.co.ack.crossword.interfaces.vo.ranking;
 
 
 @Service
@@ -61,21 +64,18 @@ public class UserService {
 	 * ユーザー登録処理
 	 *
 	 */
-	public void saveUser(Date now,Boolean flg){
+	public User createUser(){
+		User user = new User();
+		user.setName("ゲスト");
+		user.setCreated(new Date());
+		user = userRepository.save(user);
+
 		try {
-			User user = new User();
-			user.setMissCnt(0);
-			user.setCreated(now);
-			if(flg){
-				user.setPlayTime(System.currentTimeMillis());
-			}else{
-				user.setPlayTime(System.currentTimeMillis());
-			}
-			userRepository.save(user);
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		return user;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class UserService {
 	}
 
 	/**
-	 * ユーザー更新処理
+	 * 日時取得
 	 *
 	 */
 	public Date getDate(){
@@ -112,70 +112,69 @@ public class UserService {
 	 * @param passWord
 	 * @param email
 	 */
-	public List<User> getRankUsers() {
-		StringBuffer strUsersearchSQL = new StringBuffer();
-		strUsersearchSQL.append("select ");
-		strUsersearchSQL.append("user.* ");
-		strUsersearchSQL.append("from ");
-		strUsersearchSQL.append("user ");
-		strUsersearchSQL.append("order by user.score desc ");
-		strUsersearchSQL.append("limit 10 ");
-		System.out.println(strUsersearchSQL.toString());
-		// クエリの生成
-		Query q = entityManager.createNativeQuery(strUsersearchSQL.toString(), User.class);
-		// 抽出
-		@SuppressWarnings("unchecked")
-		List<User> users = q.getResultList();
-		return users;
+	public List<ranking> getRankUsers(int userid) {
+
+		List<User> userList = getRankUserList();
+		List<Crosswordplay> playList = getRankPlayList();
+
+		int cnt = 0;
+		int flg = -1;
+		List<ranking> ranks = new ArrayList<ranking>();
+		while((cnt < 10 || flg < 0) && cnt < playList.size()){
+			if(cnt < 10 || userList.get(cnt).getId() == userid){
+				ranking rank = new ranking();
+				rank.setRanking(cnt + 1);
+				rank.setId(userList.get(cnt).getId());
+				rank.setName(userList.get(cnt).getName());
+				rank.setScore((int) playList.get(cnt).getScore());
+				ranks.add(rank);
+				if(userList.get(cnt).getId() == userid){
+					flg = 1;
+				}
+			}
+			cnt++;
+		}
+
+		return ranks;
 	}
 
-	/**
-	 * ユーザー検索処理
-	 *
-	 * @param userId
-	 * @param passWord
-	 * @param email
-	 */
-	/*	public List<Mst> userSearch(SearchUser form) {
-		Mst user = new Mst();
-		StringBuffer strUsersearchSQL = new StringBuffer();
-		strUsersearchSQL.append("select ");
-		strUsersearchSQL.append("user.* ");
-		strUsersearchSQL.append("from ");
-		strUsersearchSQL.append("user ");
-		strUsersearchSQL.append("where 1=1 ");
-		if (!(form.getId() == null || form.getId().isEmpty())) {
-			strUsersearchSQL.append("and user.id like  '%");
-			strUsersearchSQL.append(form.getId());
-			strUsersearchSQL.append("%' ");
-		}
-		if (!(form.getFirstName() == null || form.getFirstName().isEmpty())) {
-			strUsersearchSQL.append("and user.first_name like '%");
-			strUsersearchSQL.append(form.getFirstName());
-			strUsersearchSQL.append("%' ");
-		}
-		if (!(form.getLastName() == null || form.getLastName().isEmpty())) {
-			strUsersearchSQL.append("and user.last_name like '%");
-			strUsersearchSQL.append(form.getLastName());
-			strUsersearchSQL.append("%' ");
-		}
-		if (form.getOperator().equals("1")) {
-			strUsersearchSQL.append("and user.operator = b'0' ");
-		} else if (form.getOperator().equals("2")) {
-			strUsersearchSQL.append("and user.operator = b'1' ");
-		}
-		if (form.getDeleted().equals("1")) {
-			strUsersearchSQL.append("and user.deleted = b'0' ");
-		} else if (form.getDeleted().equals("2")) {
-			strUsersearchSQL.append("and user.deleted = b'1' ");
-		}
-		strUsersearchSQL.append("order by user.id ");
-		System.out.println(strUsersearchSQL.toString());
+	private List<User> getRankUserList(){
+		StringBuffer getRankingSQL = new StringBuffer();
+		getRankingSQL.append("select ");
+		getRankingSQL.append(" main.* ");
+		getRankingSQL.append("from ");
+		getRankingSQL.append(" user main ");
+		getRankingSQL.append(",crosswordplay sub ");
+		getRankingSQL.append("where ");
+		getRankingSQL.append("main.id = sub.user_id and ");
+		getRankingSQL.append("sub.complete_flg is true ");
+		getRankingSQL.append("order by sub.score desc, sub.id desc ");
+		System.out.println(getRankingSQL.toString());
 		// クエリの生成
-		Query q = entityManager.createNativeQuery(strUsersearchSQL.toString(), Mst.class);
+		Query q = entityManager.createNativeQuery(getRankingSQL.toString(), User.class);
 		// 抽出
 		@SuppressWarnings("unchecked")
-		List<Mst> users = q.getResultList();
-		return users;
-	}*/
+		List<User> userList = q.getResultList();
+		return userList;
+	}
+
+	private List<Crosswordplay> getRankPlayList(){
+		StringBuffer getRankingSQL = new StringBuffer();
+		getRankingSQL.append("select ");
+		getRankingSQL.append(" sub.* ");
+		getRankingSQL.append("from ");
+		getRankingSQL.append(" user main ");
+		getRankingSQL.append(",crosswordplay sub ");
+		getRankingSQL.append("where ");
+		getRankingSQL.append("main.id = sub.user_id and ");
+		getRankingSQL.append("sub.complete_flg is true ");
+		System.out.println(getRankingSQL.toString());
+		// クエリの生成
+		Query q = entityManager.createNativeQuery(getRankingSQL.toString(), Crosswordplay.class);
+		// 抽出
+		@SuppressWarnings("unchecked")
+		List<Crosswordplay> playList = q.getResultList();
+		return playList;
+
+	}
 }

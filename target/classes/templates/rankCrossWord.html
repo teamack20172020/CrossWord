@@ -22,16 +22,16 @@
 									<th th:text="スコア"></th>
 								</tr>
 							</thead>
-							<tbody th:each="user,in : ${h_rankUsers}">
-								<tr class="rank" th:if="${user.id == userId}" id="rankuser">
-									<td id="rank" th:text="${in.index}+1"></td>
-									<td id="user" th:text="${user.name}"></td>
-									<td id="score" th:text="${user.score}"></td>
+							<tbody th:each="ranking : ${h_rankUsers}">
+								<tr class="rank" th:if="${ranking.id == h_userId}" id="rankuser">
+									<td id="rank" th:text="${ranking.ranking}"></td>
+									<td id="user" th:text="${ranking.name}"></td>
+									<td id="score" th:text="${ranking.score}"></td>
 								</tr>
-								<tr th:if="${user.id != userId}" id="dummy">
-									<td id="rank" th:text="${in.index}+1"></td>
-									<td id="user" th:text="${user.name}"></td>
-									<td id="score" th:text="${user.score}"></td>
+								<tr th:if="${ranking.id != h_userId}" id="dummy">
+									<td id="rank" th:text="${ranking.ranking}"></td>
+									<td id="user" th:text="${ranking.name}"></td>
+									<td id="score" th:text="${ranking.score}"></td>
 								</tr>
 							</tbody>
 						</table>

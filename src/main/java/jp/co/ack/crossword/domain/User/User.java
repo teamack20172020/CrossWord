@@ -2,6 +2,7 @@ package jp.co.ack.crossword.domain.User;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,7 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jp.co.ack.crossword.domain.Crossword.Crossword;
+import jp.co.ack.crossword.domain.Crosswordplay.Crosswordplay;
 
 @Entity
 @Table(name = "user")
@@ -17,11 +24,11 @@ public class User implements Serializable {
 	private int id;
 	private String name;
 	private String password;
-	private int  missCnt;
-	private long playTime;
-	private long score;
 	private Date created;
 	private Date updated;
+	@JsonIgnore
+	private List<Crossword> crossWord;
+	private List<Crosswordplay> crossWordplay;
 
 	@Id
 	@Column(name = "Id")
@@ -54,37 +61,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-
-	@Basic
-	@Column(name = "missCnt")
-	public int getMissCnt() {
-		return missCnt;
-	}
-
-	public void setMissCnt(int missCnt) {
-		this.missCnt = missCnt;
-	}
-
-	@Basic
-	@Column(name = "playTime")
-	public long getPlayTime() {
-		return playTime;
-	}
-
-	public void setPlayTime(long playTime) {
-		this.playTime = playTime;
-	}
-
-	@Basic
-	@Column(name = "score")
-	public long getScore() {
-		return score;
-	}
-
-	public void setScore(long score) {
-		this.score = score;
-	}
-
 	@Basic
 	@Column(name = "Created")
 	public Date getCreated() {
@@ -104,5 +80,23 @@ public class User implements Serializable {
 	public void setUpdated(Date
 			updated) {
 		this.updated = updated;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public List<Crossword> getCrossWord() {
+		return crossWord;
+	}
+
+	public void setCrossWord(List<Crossword> crossWord) {
+		this.crossWord = crossWord;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public List<Crosswordplay> getCrossWordplay() {
+		return crossWordplay;
+	}
+
+	public void setCrossWordplay(List<Crosswordplay> crossWordplay) {
+		this.crossWordplay = crossWordplay;
 	}
 }

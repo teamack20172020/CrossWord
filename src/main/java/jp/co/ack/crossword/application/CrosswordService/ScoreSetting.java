@@ -1,4 +1,4 @@
-package jp.co.ack.crossword.application;
+package jp.co.ack.crossword.application.CrosswordService;
 
 
 import java.util.List;
@@ -8,15 +8,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import jp.co.ack.crossword.config.ApplicationConfig;
+import jp.co.ack.crossword.domain.Crosswordplay.Crosswordplay;
 import jp.co.ack.crossword.domain.Mst.Mst;
-import jp.co.ack.crossword.domain.User.User;
 
 
-@Service
-public class ScoreService {
+@Component
+public class ScoreSetting {
 
 	@Autowired
 	ApplicationConfig config;
@@ -28,8 +28,7 @@ public class ScoreService {
 	/**
 	 * スコア算出[クロスワード]
 	 */
-	public int getCrosswordScore(User user){
-
+	public int getCrosswordScore(Crosswordplay croPlay){
 		int kbn;
 		String field01;
 		String field02;
@@ -37,7 +36,7 @@ public class ScoreService {
 		String limit;
 
 		kbn = config.MST_CROSSWORD_CNT_KBN;
-		field01 = " >= " + user.getMissCnt();
+		field01 = " >= " + croPlay.getMissCnt();
 		order = "order by field01 ASC";
 		limit = "limit 1";
 		List<Mst> mstCnt = getMstList(kbn,field01,"","",order,limit);
@@ -45,11 +44,12 @@ public class ScoreService {
 		double cntKeisu = 0;
 		if(mstCnt.size() > 0){
 			cntKeisu = Double.parseDouble(mstCnt.get(0).getField03());
+			cntKeisu = cntKeisu / 100;
 		}
 
 		kbn = config.MST_CROSSWORD_TIM_KBN;
-		field01 = " >= " + user.getPlayTime();
-		field02 = " <= " + user.getPlayTime();
+		field01 = " >= " + croPlay.getPlayTime();
+		field02 = " <= " + croPlay.getPlayTime();
 		order = "order by field03 ASC";
 		limit = "limit 1";
 		List<Mst> mstTime = getMstList(kbn,field01,field02,"",order,limit);

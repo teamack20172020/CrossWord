@@ -25,6 +25,9 @@ public class template{
 	private int width;
 	//高さ
 	private int height;
+	//文字の使用率
+	private int utilization;
+
 	//初期開始可能位置リスト[上下左右の四隅]
 	private int[] enptylist;
 	//クロスワード文字列
@@ -109,6 +112,17 @@ public class template{
 		}
 	}
 
+
+	public void setUtilization(template temp) {
+		String strAll = temp.getTemplateToString();
+		strAll = strAll.replace(temp.getSp2(),"");
+		String strEmp = strAll.replace(temp.getNoempty(), "");
+		double numAll = strAll.length();
+		double numEmp = strEmp.length();
+		double num = (numEmp / numAll);
+		this.utilization =  (int) (num * 100);
+	}
+
 	/*
 	 * 値の追加
 	 */
@@ -151,6 +165,10 @@ public class template{
 		return height;
 	}
 
+	public int getUtilization() {
+		return utilization;
+	}
+
 	public int[] getEnptylist() {
 		return enptylist;
 	}
@@ -170,6 +188,28 @@ public class template{
 
 		return str.replace(empty,noempty);
 	}
+
+	public String getFormatToTemplate() {
+		String[] temp = this.template;
+		String str = "";
+		for(int i = 0; i < temp.length;i++){
+			if(i!=0){
+				str += ",";
+			}
+			String check = temp[i];
+			if(!check.equals(noempty)){
+				if(check.equals(empty)){
+					temp[i] = noempty;
+				}else{
+					temp[i] = empty;
+				}
+			}
+			str += temp[i];
+		}
+
+		return str;
+	}
+
 
 	public ArrayList<Integer> getPointList(boolean flg) {
 		if(flg){

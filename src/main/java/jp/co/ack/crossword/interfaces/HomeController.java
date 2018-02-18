@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import jp.co.ack.crossword.application.CreateService;
-import jp.co.ack.crossword.application.PlayService;
 import jp.co.ack.crossword.application.UserService;
 
 @Controller
@@ -16,11 +14,6 @@ public class HomeController {
 
 	@Autowired
 	UserService userService;
-	@Autowired
-	CreateService createService;
-
-	@Autowired
-	PlayService playService;
 
 	/**
 	 * トップぺージ

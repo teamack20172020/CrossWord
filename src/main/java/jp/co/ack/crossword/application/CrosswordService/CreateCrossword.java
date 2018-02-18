@@ -1,22 +1,22 @@
-package jp.co.ack.crossword.application;
+package jp.co.ack.crossword.application.CrosswordService;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import jp.co.ack.crossword.domain.Word.Word;
 import jp.co.ack.crossword.interfaces.vo.template;
 
-@Service
-public class CreateService{
+@Component
+public class CreateCrossword{
 
 	@Autowired
-	WordService ws;
+	WordSetting ws;
 
 	@Autowired
-	RootingService rs;
+	RootSetting rs;
 
 	// 方向
 	public enum Direction{
@@ -42,7 +42,8 @@ public class CreateService{
 			main(temp);
 
 			//空白マス[■]のみで構成される列・行の存在確認
-			if(getUtilization(temp) >= average){
+			temp.setUtilization(temp);
+			if(temp.getUtilization() >= average){
 				//文字の使用率率が指標以上であるか確認
 				if(checkEmpAll(temp)){
 					return temp;
@@ -208,21 +209,6 @@ public class CreateService{
 			}
 		}
 		return res;
-	}
-
-	/**
-	 * @see [概要] 文字使用率取得
-	 * @param temp
-	 * @return 文字使用率
-	 */
-	private int getUtilization(template temp){
-		String strAll = temp.getTemplateToString();
-		strAll = strAll.replace(temp.getSp2(),"");
-		String strEmp = strAll.replace(temp.getNoempty(), "");
-		double numAll = strAll.length();
-		double numEmp = strEmp.length();
-		double num = (numEmp / numAll);
-		return (int) (num * 100);
 	}
 
 }

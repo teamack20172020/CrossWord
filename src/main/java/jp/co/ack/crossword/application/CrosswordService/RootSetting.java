@@ -1,15 +1,15 @@
-package jp.co.ack.crossword.application;
+package jp.co.ack.crossword.application.CrosswordService;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import jp.co.ack.crossword.application.CreateService.Direction;
+import jp.co.ack.crossword.application.CrosswordService.CreateCrossword.Direction;
 import jp.co.ack.crossword.interfaces.vo.template;
 
-@Service
-class RootingService {
+@Component
+class RootSetting {
 
 	/**
 	 * @see [概要] 開始位置取得

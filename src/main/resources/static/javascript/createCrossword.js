@@ -4,6 +4,7 @@ var PassSec;
 var PassageID;
 
 $(function(){
+
 	//背景画像をランダムに決定
 	var url=[];
 	url[0] = '01.jpg';
@@ -47,7 +48,7 @@ $(function(){
 	}
 
 	// タイマーの初期化と実行(1000ms間隔)
-	PassSec = Number($("#time").val());
+	PassSec = Number($("#playTime").val());
 	PassageID = setInterval('showPassage()',1000);
 });
 
@@ -65,5 +66,5 @@ function showPassage() {
 function stopShowing() {
 	// タイマーのクリア
 	clearInterval( PassageID );
-	$("#time").val( PassSec )
+	$("#playTime").val( PassSec )
 }

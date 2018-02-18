@@ -1,6 +1,5 @@
 package jp.co.ack.crossword.interfaces;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,28 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.ack.crossword.application.CreateService;
-import jp.co.ack.crossword.application.PlayService;
-import jp.co.ack.crossword.application.ScoreService;
 import jp.co.ack.crossword.application.UserService;
+import jp.co.ack.crossword.application.CrosswordService.CrossWordService;
+import jp.co.ack.crossword.domain.Crossword.Crossword;
+import jp.co.ack.crossword.domain.Crossworditem.Crossworditem;
+import jp.co.ack.crossword.domain.Crosswordplay.Crosswordplay;
 import jp.co.ack.crossword.domain.User.User;
-import jp.co.ack.crossword.interfaces.vo.crossplayForm;
-import jp.co.ack.crossword.interfaces.vo.template;
+import jp.co.ack.crossword.interfaces.vo.ranking;
 
 @Controller
 @RequestMapping("/crossword")
 public class CrossWordController {
 
 	@Autowired
-	PlayService playService;
-	@Autowired
-	CreateService createService;
-
-
-	@Autowired
 	UserService userService;
 	@Autowired
-	ScoreService scoreService;
+	CrossWordService crosswordService;
 
 	@Autowired
 	HttpSession session;
@@ -57,41 +50,38 @@ public class CrossWordController {
 	 */
 	@GetMapping("play")
 	public ModelAndView play(Model model) {
-		int userId;
-		String str;
 
-
-		//画面情報の取得
 		User j_user = new User();
-		crossplayForm j_from = new crossplayForm();
-		template j_temp = (template) session.getAttribute("template");
-		if(j_temp==null){
-			//クロスワードの自動生成
-			j_temp = createService.create(7,7,50);
+		Crossword j_crossword = new Crossword();
+		Crosswordplay j_playinfo = new Crosswordplay();
 
-			// セッションへ保存
-			session.setAttribute("template", j_temp);
-
-			str = j_from.getStrCro(j_temp);
-
+		String str = String.valueOf(model.asMap().get("playId"));
+		if(str == null || str.equals("null") || str.equals("")){
 			//新規ユーザー登録・取得
-			Date datetime = userService.getDate();
-			userService.saveUser(datetime,true);
-			j_user = userService.getUserByCreated(datetime);
-			userId = j_user.getId();
-			j_user.setPlayTime(0);
+			j_user = userService.createUser();
+			//プレイ情報の取得
+			str = String.valueOf(crosswordService.main(j_user));
+			// セッションへ保存
+			j_playinfo = crosswordService.findByCrosswordIdandUserId(j_user.getId(),Integer.valueOf(str));
+			j_crossword = crosswordService.findById(j_playinfo.getCrossword().getId());
+			j_playinfo.setPlayTime(0);
 		}else{
-			userId = (int) model.asMap().get("userId");
-			str = (String) model.asMap().get("crossWord_wk");
+			j_playinfo =
+					crosswordService.PlayInfofindById((int) model.asMap().get("playId"));
+			j_crossword = crosswordService.findById(j_playinfo.getCrossword().getId());
+			j_crossword.setTemplate_view((String) model.asMap().get("template"));
 		}
-		j_user = userService.getUserById(userId);
-		j_from.setini(j_temp,str,j_user.getPlayTime());
-		j_from.setUser(j_user);
+
+		//画面出力用情報の取得
+		List<Crossworditem> j_crossworditemes = crosswordService.findByCrosswordId(j_crossword.getId());
 
 		//ページの描画
 		ModelAndView mav = new ModelAndView("playCrossWord");
+		System.out.println(j_playinfo.getId());
 		mav.addObject("h_user",j_user);
-		mav.addObject("h_from",j_from);
+		mav.addObject("h_playinfo",j_playinfo);
+		mav.addObject("h_crossword",j_crossword);
+		mav.addObject("h_crossworditemes",j_crossworditemes);
 		return mav;
 	}
 
@@ -99,31 +89,29 @@ public class CrossWordController {
 	 * クロスワード結果確認
 	 */
 	@GetMapping("play/check")
-	public String croCheck(RedirectAttributes attributes,crossplayForm j_from) {
-
+	public String croCheck(RedirectAttributes attributes,int id,int playTime,String template) {
 		String url = "";
 
+		int playId = Integer.valueOf(id);
 		//セッションの取得
-		template j_temp = (template) session.getAttribute("template");
+		Crosswordplay playinfo = crosswordService.PlayInfofindById(playId);
+		playinfo.setPlayTime(playTime);
+		Crossword crossword = crosswordService.findById(playinfo.getCrossword().getId());
+		crossword.setTemplate_view(template);
 
-		User user = userService.getUserById(j_from.getUser().getId());
-		user.setMissCnt(user.getMissCnt()+1);
-		user.setPlayTime(j_from.getTime());
 		//解答の確認
-		boolean res = playService.checkCrossWord(j_from,j_temp);
+		boolean res = crosswordService.checkCrossWord(crossword);
+
+		crosswordService.updatePlayinfo(playinfo,res);
+		attributes.addFlashAttribute("playId",playinfo.getId());
+		attributes.addFlashAttribute("template",template);
+
 		if(res){
-			int score = scoreService.getCrosswordScore(j_from.getUser());
-			user.setScore(score);
-			attributes.addFlashAttribute("userId",j_from.getUser().getId());
 			url = "redirect:/crossword/play/rank";
 		}else{
-			String str = j_from.getStrCro_reload(j_from.getCrossWord_res(),j_temp);
-			attributes.addFlashAttribute("crossWord_wk",str);
-			attributes.addFlashAttribute("userId",j_from.getUser().getId());
 			url = "redirect:/crossword/play";
 		}
 
-		userService.updateUser(user,res);
 
 		return url;
 	}
@@ -133,13 +121,22 @@ public class CrossWordController {
 	 */
 	@GetMapping("play/rank")
 	public ModelAndView rank(Model model) {
+		int userid = -1;
 		//ランキングの取得
-		//int userId = (int) model.asMap().get("userId");
-		List<User> j_rankUsers = userService.getRankUsers();
+		String str = String.valueOf(model.asMap().get("playId"));
+		if(str != null && str.equals("null") && str.equals("")){
+			int playId = Integer.valueOf(str);
+			Crosswordplay playinfo = crosswordService.PlayInfofindById(playId);
+			userid = playinfo.getUser().getId();
+		}
+		List<ranking> j_rankUsers = userService.getRankUsers(userid);
+
 		//セッションクリア
 		session.invalidate();
+
 		//ページの描画
 		ModelAndView mav = new ModelAndView("rankCrossWord");
+		mav.addObject("h_userId",userid);
 		mav.addObject("h_rankUsers", j_rankUsers);
 
 		return mav;
