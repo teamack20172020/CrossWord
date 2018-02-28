@@ -29,8 +29,8 @@
 
 /*サイズ[大]*/
 .button-big {
-	width: 30%;
-	height: 15%;
+	width: 60px
+	height: 20px;
 	padding: 10px 20px;
 	background-repeat: no-repeat;
 	background-position: center center;

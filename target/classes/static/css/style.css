@@ -1,6 +1,43 @@
 ﻿@charset "utf-8";
 
 @import url('common.css');
+/* [クロスワード(user)]基本設定ここから↓*/
+.user#main{
+	background-image: url('/photo/CrossWord/kanban3.png');
+	background-repeat: no-repeat;
+	background-position: 50px -40px;
+	height: 500px;
+}
+#UserConfig,#Registrationtutorial,#tutorial{
+	background-color:white;
+	width:450px;
+	height:400px;
+	margin:0px auto 0 auto;
+}
+#tutorial{
+	height:250px;
+	margin-top:30px;
+}
+.user#main li{
+	display: inline-block;
+}
+#tutorial p{
+	padding:10px;
+	text-align:left;
+}
+#UserConfig div{
+	margin-top:30px;
+}
+#UserConfig ul{
+	width:500px;
+	height:30px;
+	padding-top: 30px;
+}
+#UserConfig,#Registration,#guest{
+	display:none;
+}
+/* [クロスワード(user)]基本設定ここまで↑ */
+
 
 /* [クロスワード(play)]基本設定ここから↓*/
 .CrossWordPlaying {
@@ -21,8 +58,8 @@ p#PassageArea {
 	margin: 20px 0 15px 0;
 	padding: 10px;
 	font-size: 25px;
-	background-image: url('/photo/CrossWord/time2.png'); background-repeat
-	: no-repeat;
+	background-image: url('/photo/CrossWord/time2.png');
+	background-repeat:no-repeat;
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
@@ -89,22 +126,11 @@ li #dummy {
 .hint {
 	width: 180px;
 	height: 330px;
-	padding: 1px;
 	float: left;
 	color: #565656;
-	background-color: #fffaf0;
-	box-shadow: 0px 0px 0px 2px #ffeaea;
-	border: dashed 2px #ffc3c3;
-	border-radius: 8px;
-	text-align: center;
-	box-shadow: 0px 0px 0px 2px #ffeaea;
-	border: dashed 2px #ffc3c3;
-	border-radius: 8px;
-	margin: 3px;
-	margin-top: 95px;
-	background-image: url('/photo/CrossWord/pin.png');
 	background-repeat: no-repeat;
 	background-position: left top;
+	margin-top:95px;
 }
 
 .hint#left {
@@ -112,7 +138,12 @@ li #dummy {
 }
 
 .hint p {
-	border-bottom: dashed 2px #ffc3c3;
+	background-image:url('/photo/CrossWord/ribbon_white.png');
+	background-size:100% 100%;
+	background-position:center -0px;
+	margin:0;
+	height:50px;
+	padding-top:15px;
 }
 
 .hintList {
@@ -136,28 +167,22 @@ ul#keycol {
 .ranking#main {
 	background-image: url('/photo/CrossWord/kanban3.png');
 	background-repeat: no-repeat;
-	background-position: 50px -30px;
+	background-position: 50px -40px;
 	height: 500px;
-}
-
-.ranking#sub {
-	height: 0;
 }
 
 .ranking#center {
-	height: 500px;
+	height: 600px;
 	overflow: hidden;
 }
 
 #rankTable {
-	width: 500px;
+	height:300px;
 	margin: 0 auto 0 auto;
 	font-size: 120%;
-	padding: 10px;
+	margin-top:80px;
 	border-collapse:collapse;
-	margin-top:50px;
 }
-
 #rankTable caption figure{
 	margin:0;
 }
@@ -166,40 +191,73 @@ ul#keycol {
 	height:80px;
 }
 
-#rankTable td,#rankTable th{
-	border: 1px solid #999999;
-}
-#rankTable thead{
+#rankTable thead {
 	background-color:#573939;
 	color:#eee6de;
 }
-#rankTable tbody:nth-of-type(1){
-	color:#ffd700;
-	background-image:url('/photo/CrossWord/star.png');
+#rankTable tbody tr:nth-of-type(-n+3){
+    background-repeat:no-repeat;
 }
-#rankTable tbody:nth-of-type(2){
+#rankTable tbody tr:nth-of-type(1){
+	color:#ffd700;
+}
+#rankTable tbody tr:nth-of-type(2){
 	color:#c0c0c0;
 }
-#rankTable tbody:nth-of-type(3){
+#rankTable tbody tr:nth-of-type(3){
 	color:#815a2b;
 }
-#rankTable tbody{
+#rankTable tbody tr{
 	background-color:#ffffff;
+	color:black;
+	height:50px;
 }
-#rankTable tbody:nth-of-type(even){
+#rankTable tbody tr:nth-of-type(even){
 	background-color:#f5f3f3;
 }
-
-#rankuser{
-	background-color: #c3e943;
+#rankTable tbody  #rankuser{
+	background-color:#99FFCC;
 }
 
-#rank,#user {
-	text-align: center;
+.rank1{
+	text-align:center;
 }
-
-#score {
+.user{
+	text-align:left;
+}
+.score {
 	text-align: right;
 }
+#rankTable td,#rankTable th{
+	border: 1px solid #999999;
+}
+#rankTable td:nth-child(1) ,#rankTable th:nth-child(1){ width: 70px; }
+#rankTable td:nth-child(2) ,#rankTable th:nth-child(2){ width: 300px; }
+#rankTable td:nth-child(3) ,#rankTable th:nth-child(3){ width: 100px; }
 
+/*スクロースバーの設定*/
+#rankTable thead,#rankTable tbody{
+	display:block;
+}
+#rankTable tbody{
+	overflow-x:hidden;
+	overflow-y:scroll;
+	height:250px;
+	position: relative;
+}
+#rankTable tbody::-webkit-scrollbar{
+  width: 20px;
+  height:60px;
+}
+#rankTable tbody::-webkit-scrollbar-track{
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px #777;
+}
+#rankTable tbody::-webkit-scrollbar-thumb{
+  background: #aaa;
+  border-radius: 10px;
+  box-shadow: none;
+}
 /* [クロスワード(rank)]基本設定ここまで↑ */

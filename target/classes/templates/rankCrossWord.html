@@ -3,51 +3,50 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>ランキング</title>
 		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="/../javascript/Scroll.js"></script>
 	</head>
 	<body>
 		<div th:replace="common/header::header"></div>
 		<div id="body">
-		<form action="play/check" method="get">
 			<section class="ranking" id="main">
 				<div class="ranking" id="center">
-
 						<table id="rankTable">
 							<caption>
-							<img src=" ../../photo/CrossWord/rank.png" alt="ランキング" ></img>
+							<img src=" /../photo/CrossWord/rank.png" alt="ランキング" ></img>
+							<div>
+							<select name="rankrange">
+								<option th:value="MYランク" th:text="myランク"></option>
+								<option th:each="range:${h_range}" th:value="${range}" th:text="${range}+'位'" th:selected="${range}"></option>
+							</select><!--value="0"   selected="0"-->
+							</div>
 							</caption>
 							<thead>
 								<tr>
-									<th th:text="順位"></th>
-									<th th:text="ユーザー名"></th>
+									<th  th:text="順位"></th>
+									<th  th:text="ユーザー名"></th>
 									<th th:text="スコア"></th>
 								</tr>
 							</thead>
-							<tbody th:each="ranking : ${h_rankUsers}">
-								<tr class="rank" th:if="${ranking.id == h_userId}" id="rankuser">
-									<td id="rank" th:text="${ranking.ranking}"></td>
-									<td id="user" th:text="${ranking.name}"></td>
-									<td id="score" th:text="${ranking.score}"></td>
-								</tr>
-								<tr th:if="${ranking.id != h_userId}" id="dummy">
-									<td id="rank" th:text="${ranking.ranking}"></td>
-									<td id="user" th:text="${ranking.name}"></td>
-									<td id="score" th:text="${ranking.score}"></td>
+							<tbody class="scroll">
+								<tr th:each="ranking : ${h_rankUsers}" th:id="${ranking.ranking}">
+									<td class="rank1" th:text="${ranking.ranking}" th:if="${ranking.id ==h_userId}" id="rankuser"></td>
+									<td class="user" th:text="${ranking.name}"     th:if="${ranking.id ==h_userId}" id="rankuser"></td>
+									<td class="score" th:text="${ranking.score}"   th:if="${ranking.id ==h_userId}" id="rankuser"></td>
+
+									<td class="rank1" th:text="${ranking.ranking}" th:if="${ranking.id !=h_userId}" id="dummy"></td>
+									<td class="user" th:text="${ranking.name}"     th:if="${ranking.id !=h_userId}" id="dummy"></td>
+									<td class="score" th:text="${ranking.score}"   th:if="${ranking.id !=h_userId}" id="dummy"></td>
 								</tr>
 							</tbody>
 						</table>
-				</div>
+					</div>
 			</section>
-			<section class="ranking" id="sub">
-				<div id="button-center">
-					<p>
-					<a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword}">戻る</a>
-					</p>
-				</div>
-			</section>
+			<form  method="get" th:action="|/crossword/play/rank/replay|">
+			<div id="button-center">
+			<input class="button-big" id="button-orange" type="submit" value="次へ"></input>
+			</div>
 		</form>
 		</div>
-
-		<footer>
-		</footer>
 	</body>
 </html>

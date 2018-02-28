@@ -36,13 +36,15 @@
 								draggable="true"  ondragstart="f_dragstart(event)"></div>
 						</div>
 					</div>
-					<div id="button-center">
+					<div id="button-center" class="inine">
 						<input class="button-middle" id="button-orange" type="submit" value="完成" onclick="stopShowing();" />
+						<input class="button-middle" id="button-orange" type="reset" value="クリア" />
 					</div>
 				</section>
 			</form>
 		</div>
 		<footer>
+			<p th:text="${a}"></p>
 		</footer>
 	</body>
 </html>

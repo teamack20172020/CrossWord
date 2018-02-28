@@ -6,43 +6,45 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="../javascript/createCrossword.js"></script>
 		<script type="text/javascript" src="../javascript/ansDragAndDrop.js"></script>
+				<script type="text/javascript" src="../javascript/removePlay.js"></script>
 	</head>
 	<body>
 		<div th:replace="common/header::header"></div>
 		<div class="CrossWordPlaying" id="body">
-		<form name="form" th:object="${h_from}" method="GET" th:action="|/crossword/play/check|" id="j_form">
-			<input id='width' type="hidden" th:value="*{width}" />
-			<input id='height' type="hidden" th:value="*{height}" />
-			<input id='template' type="hidden" th:value="*{crossWord_wk}" />
-			<input id='time' name="time" type="hidden" th:value="*{time}" />
-			<input id='userId' name='user.id' type="hidden" th:value="${h_user.id}" />
+		<form name="form" th:object="${h_playinfo}" method="GET" th:action="|/crossword/play/check|" id="form_id">
+			<input id='id' name='id' type="hidden" th:value="*{id}" />
+			<input id='playTime' name="playTime" type="hidden" th:value="*{playTime}" />
+			<input id='template' name="template" type="hidden" th:value="${h_crossword.template_view}" />
+			<input id='width' type="hidden" th:value="${h_crossword.width}" />
+			<input id='height' type="hidden" th:value="${h_crossword.height}" />
 			<!-- クロスワード出力部 -->
-
 			<section class="crossword" id="main">
-			<p id="PassageArea" th:text="'経過時間：' +  *{time} + '秒'"></p>
-			<div id="table"></div>
+			<p id="PassageArea" th:text="'経過時間：' + *{playTime} + '秒'"></p>
+				<div id="table"></div>
 			</section>
 			<!-- ヒント出力部 -->
 				<section class="crossword" id="sub" draggable="false">
 					<div id="hint">
 						<div class="hint" id="left">
 							<p>横キー<br /></p>
-							<div class="hintList" th:each="word,status : *{wordListCol}" th:attr="id='keycol' + __${status.index}__" th:text="${word.word}"
+							<div class="hintList" th:each="word,status : ${h_crossworditemes}" th:if="${word.kbn != 0}" th:attr="id='keycol' + __${status.index}__" th:text="${word.word}"
 								draggable="true"  ondragstart="f_dragstart(event)"></div>
 						</div>
 						<div class="hint" id="right">
 							<p>縦キー<br /></p>
-							<div class="hintList" th:each="word,status : *{wordListRow}" th:attr="id='keyrow' + __${status.index}__" th:text="${word.word}"
+							<div class="hintList" th:each="word,status : ${h_crossworditemes}" th:if="${word.kbn == 0}" th:attr="id='keyrow' + __${status.index}__" th:text="${word.word}"
 								draggable="true"  ondragstart="f_dragstart(event)"></div>
 						</div>
 					</div>
-					<div id="button-center">
+					<div id="button-center" class="inine">
 						<input class="button-middle" id="button-orange" type="submit" value="完成" onclick="stopShowing();" />
+						<input class="button-middle" id="button-orange" type="reset" value="クリア" />
 					</div>
 				</section>
 			</form>
 		</div>
 		<footer>
+			<p th:text="${a}"></p>
 		</footer>
 	</body>
 </html>

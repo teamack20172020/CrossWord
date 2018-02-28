@@ -8,10 +8,10 @@
 	<body>
 		<div th:replace="common/header::header"></div>
 		<div id="body">
-        <form th:action="|/crossword/play|" method="get">
+        <form th:action="|/crossword/user|" method="get">
 		<section id="main">
 			<h1>
-                <img src="photo/CrossWord/title.png" alt="logo" width="1080px"></img>
+                <img src="../photo/CrossWord/title.png" alt="logo" width="1080px"></img>
 			</h1>
 		</section>
             <div id="button-center">
@@ -19,5 +19,8 @@
             </div>
 		</form>
 		</div>
+		<footer>
+		<p th:text="${h_userId}"></p>
+		</footer>
 	</body>
 </html>

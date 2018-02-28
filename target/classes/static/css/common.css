@@ -21,24 +21,26 @@ header, #body {
 #main h1{
 	margin:0;
 	height:400px;
-	 position: relative; z-index: 2;
+	position: relative; z-index: 2;
 }
-#main h1 img{
+img{
 	width:100%;
 }
 
 #body {
 		width:860px;
-		height: 580px;
+		height: 560px;
 	    background-image:url('/photo/CrossWord/background_01.jpg');
+	    backgrund-repeat:no-repeat;
 }
 
 #main{
     text-align: center;
-    height:400px;
+    overflow: hidden;
 }
 
 /*見直し要*/
-ul {
+ul,a{
 	list-style: none;
+	padding:0;
 }

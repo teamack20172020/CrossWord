@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>ユーザー登録</title>
+		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
+	</head>
+	<body th:object="${h_from}">
+		<div th:replace="common/header::header"></div>
+		<div id="body">
+			<form action="user/next" th:action="|/crossword/user/next|" th:object="${h_user}" method="get">
+
+				<section class="user" id="main">
+						<h2>CROSSWORD</h2>
+						<div id="tutorial">
+							<h2>USER登録</h2>
+							<p>このゲームではユーザー登録をすると、	ユーザー間でランキングを競うことが出来ます。<br/>
+							すでにアカウントをお持ちの方は、ログインを、
+							初めての方は、新規登録を選択してください。<br/>
+							(※ゲストplayは、登録が不要ですが、名前がゲストとして登録され、次回ログインは出来なくなります。)
+							</p>
+						</div>
+						<div id="chose">
+							<ul>
+								<li><a  href="javascript:void(0)">ログイン</a></li>
+								<li><a  href="javascript:void(0)">新規登録</a></li>
+							</ul>
+							<a  href="javascript:void(0)" th:href="@{/crossword/user/next}">ゲストplay</a>
+						</div>
+					<div id="UserConfig">
+						<div>
+						<h2>ログイン</h2>
+							<p>ユーザー名
+							<input name="name" id="name" type="text"  th:value="*{name}" th:required="required"	th:disabled="disabled"></input></p>
+							<p>パスワード
+							<input name="pass" id="pass" type="text"  th:value="*{password}" th:required="required"	th:disabled="disabled"></input></p>
+						</div>
+							<input type="submit" value="ログイン"></input>
+						<ul>
+							<li><a  href="javascript:void(0)">新規登録</a></li>
+							<li><a  href="javascript:void(0)">ゲストplay</a></li>
+						</ul>
+						<p>※ゲストとしてプレイする場合登録は不要です</p>
+					</div>
+
+				<div id="Registration">
+						<p>ユーザー名
+						<input name="name" id="name" type="text"  th:value="*{name}" th:required="required" th:disabled="disabled"></input></p>
+						<p>パスワード
+					<input name="pass" id="pass" type="text"  th:value="*{password}" th:required="required" th:disabled="disabled"></input></p>
+						<div id="button-center">
+							<input type="submit" value="登録"></input>
+						</div>
+						<ul>
+							<li><a  href="javascript:void(0)">すでにアカウントをお持ちの方</a></li>
+							<li><a  href="javascript:void(0)">ゲストplay</a></li>
+						</ul>
+				</div>
+				</section>
+			</form>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>

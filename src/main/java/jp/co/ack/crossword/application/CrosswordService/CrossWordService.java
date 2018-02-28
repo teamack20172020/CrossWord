@@ -40,7 +40,7 @@ public class CrossWordService {
 	public int main(User user){
 		Crossword info = new Crossword();
 		info = createCrossward(user);
-		Crosswordplay playinfo = crosswordplayrepository.findByCrosswordIdAndUserId(user.getId(),info.getId());
+		Crosswordplay playinfo = crosswordplayrepository.findByCrosswordIdAndUserId(info.getId(),user.getId());
 		return playinfo.getId();
 	}
 
@@ -145,6 +145,6 @@ public class CrossWordService {
 	}
 
 	public Crosswordplay findByCrosswordIdandUserId(int userid,int crosswordid){
-		return crosswordplayrepository.findByCrosswordIdAndUserId(userid,crosswordid);
+		return crosswordplayrepository.findByCrosswordIdAndUserId(crosswordid,userid);
 	}
 }

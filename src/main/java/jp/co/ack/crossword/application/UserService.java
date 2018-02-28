@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -69,15 +68,18 @@ public class UserService {
 		user.setName("ゲスト");
 		user.setCreated(new Date());
 		user = userRepository.save(user);
-
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		return user;
 	}
 
+
+	public User createNewUser(String name, String pass) {
+		User user = new User();
+		user.setName(name);
+		user.setPassword(pass);
+		user.setCreated(new Date());
+		user = userRepository.save(user);
+		return user;
+	}
 	/**
 	 * ユーザー更新処理
 	 *
@@ -113,15 +115,14 @@ public class UserService {
 	 * @param email
 	 */
 	public List<ranking> getRankUsers(int userid) {
-
 		List<User> userList = getRankUserList();
 		List<Crosswordplay> playList = getRankPlayList();
 
 		int cnt = 0;
 		int flg = -1;
 		List<ranking> ranks = new ArrayList<ranking>();
-		while((cnt < 10 || flg < 0) && cnt < playList.size()){
-			if(cnt < 10 || userList.get(cnt).getId() == userid){
+		while((cnt < 500 || flg < 0) && cnt < playList.size()){
+			if(cnt < 500 || userList.get(cnt).getId() == userid){
 				ranking rank = new ranking();
 				rank.setRanking(cnt + 1);
 				rank.setId(userList.get(cnt).getId());
@@ -168,6 +169,7 @@ public class UserService {
 		getRankingSQL.append("where ");
 		getRankingSQL.append("main.id = sub.user_id and ");
 		getRankingSQL.append("sub.complete_flg is true ");
+		getRankingSQL.append("order by sub.score desc, sub.id desc ");
 		System.out.println(getRankingSQL.toString());
 		// クエリの生成
 		Query q = entityManager.createNativeQuery(getRankingSQL.toString(), Crosswordplay.class);
@@ -177,4 +179,18 @@ public class UserService {
 		return playList;
 
 	}
+	public ArrayList<Integer> getrange() {
+		List<User> userList = getRankUserList();
+		ArrayList<Integer> range=new ArrayList<Integer>();
+		int count=1;
+		int b=userList.size();
+		while(count<=b){
+			range.add(count);
+			count=count+10;
+		}
+
+		return range;
+	}
+
+
 }
