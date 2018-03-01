@@ -3,15 +3,18 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>ユーザー登録</title>
 		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="/../javascript/userconfig.js"></script>
 	</head>
 	<body th:object="${h_from}">
 		<div th:replace="common/header::header"></div>
 		<div id="body">
 			<form action="user/next" th:action="|/crossword/user/next|" th:object="${h_user}" method="get">
 
-				<section class="user" id="main">
+				<section class="Crossuser" id="main">
 						<h2>CROSSWORD</h2>
 						<div id="tutorial">
+						<div id="Description">
 							<h2>USER登録</h2>
 							<p>このゲームではユーザー登録をすると、	ユーザー間でランキングを競うことが出来ます。<br/>
 							すでにアカウントをお持ちの方は、ログインを、
@@ -21,40 +24,51 @@
 						</div>
 						<div id="chose">
 							<ul>
-								<li><a  href="javascript:void(0)">ログイン</a></li>
-								<li><a  href="javascript:void(0)">新規登録</a></li>
+								<li><a class="login" href="javascript:void(0)">ログイン</a></li>
+								<li><a class="registation" href="javascript:void(0)">新規登録</a></li>
 							</ul>
 							<a  href="javascript:void(0)" th:href="@{/crossword/user/next}">ゲストplay</a>
 						</div>
-					<div id="UserConfig">
-						<div>
-						<h2>ログイン</h2>
-							<p>ユーザー名
-							<input name="name" id="name" type="text"  th:value="*{name}" th:required="required"	th:disabled="disabled"></input></p>
-							<p>パスワード
-							<input name="pass" id="pass" type="text"  th:value="*{password}" th:required="required"	th:disabled="disabled"></input></p>
 						</div>
-							<input type="submit" value="ログイン"></input>
-						<ul>
-							<li><a  href="javascript:void(0)">新規登録</a></li>
-							<li><a  href="javascript:void(0)">ゲストplay</a></li>
-						</ul>
-						<p>※ゲストとしてプレイする場合登録は不要です</p>
-					</div>
 
-				<div id="Registration">
-						<p>ユーザー名
-						<input name="name" id="name" type="text"  th:value="*{name}" th:required="required" th:disabled="disabled"></input></p>
-						<p>パスワード
-					<input name="pass" id="pass" type="text"  th:value="*{password}" th:required="required" th:disabled="disabled"></input></p>
-						<div id="button-center">
-							<input type="submit" value="登録"></input>
+
+						<div id="UserConfig" class="userdiv">
+							<h2>ログイン</h2>
+							<a class="back" href="javascript:void(0)">
+							<img src="../photo/button/back_button.gif" alt="ZOO LOGICAL"></img>
+							</a>
+								<p>ユーザー名
+								<input name="name" id="name" class="log" type="text"  th:value="*{name}" required="true" disabled="true"></input></p>
+								<p>パスワード
+							<input name="pass" id="pass" class="log" type="text"  th:value="*{password}" disabled="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれるように入力してください"></input></p>
+								<div id="button-center">
+									<input type="submit" value="ログイン"></input>
+								</div>
+								<ul>
+									<li><a class="registation"  href="javascript:void(0)">新規登録</a></li>
+									<li><a  th:href="@{/crossword/user/next}">ゲストplay</a></li>
+								</ul>
 						</div>
-						<ul>
-							<li><a  href="javascript:void(0)">すでにアカウントをお持ちの方</a></li>
-							<li><a  href="javascript:void(0)">ゲストplay</a></li>
-						</ul>
-				</div>
+
+						<div id="Registration" class="userdiv">
+							<h2>新規登録</h2>
+							<a class="back" href="javascript:void(0)">
+							<img src="../photo/button/back_button.gif" alt="ZOO LOGICAL"></img>
+							</a>
+								<p>ユーザー名
+								<input name="name" id="name" class="reg" type="text"  th:value="*{name}" required="true" disabled="true"></input></p>
+								<p>パスワード
+							<input name="pass" id="pass" class="reg" type="text"  th:value="*{password}"  disabled="true"	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれていること"></input></p>
+								<div id="button-center">
+									<input type="submit" value="登録"></input>
+								</div>
+								<ul>
+									<li><a class="login"  href="javascript:void(0)">ログイン</a></li>
+									<li><a  th:href="@{/crossword/user/next}">ゲストplay</a></li>
+								</ul>
+						</div>
 				</section>
 			</form>
 		</div>

@@ -1,40 +1,52 @@
 ﻿@charset "utf-8";
+/*クロスワードの設定*/
 
 @import url('common.css');
-/* [クロスワード(user)]基本設定ここから↓*/
-.user#main{
+.Crossuser#main,.ranking#main{
 	background-image: url('/photo/CrossWord/kanban3.png');
-	background-repeat: no-repeat;
 	background-position: 50px -40px;
-	height: 500px;
+	background-repeat:no-repeat;
+	height:500px;
+	position:relative;
 }
-#UserConfig,#Registrationtutorial,#tutorial{
-	background-color:white;
+/* [クロスワード(user)]基本設定ここから↓*/
+#tutorial,.userdiv{
 	width:450px;
 	height:400px;
-	margin:0px auto 0 auto;
+  	position: absolute;
+     top: 50px;
+    left: 200px;
 }
 #tutorial{
-	height:250px;
 	margin-top:30px;
+	z-index;1;
 }
-.user#main li{
-	display: inline-block;
+#Description{
+	height:250px;
+	background-color:white;
 }
-#tutorial p{
-	padding:10px;
+#Description p{
 	text-align:left;
 }
-#UserConfig div{
-	margin-top:30px;
+
+.Crossuser#main ul li{
+	display:inline;
 }
-#UserConfig ul{
-	width:500px;
-	height:30px;
-	padding-top: 30px;
-}
-#UserConfig,#Registration,#guest{
+.userdiv{
+	background-image: url('/photo/CrossWord/print.png');
+	background-size:100% 100%;
 	display:none;
+	z-index;3;
+}
+.back{
+	position: absolute;
+    top: 5px;
+    left: 380px;
+    width:50px;
+	height:50px;
+}
+.back:hover{
+	opacity:0.9;
 }
 /* [クロスワード(user)]基本設定ここまで↑ */
 
@@ -67,11 +79,11 @@ p#PassageArea {
 /* [クロスワード(play)]タイマー出力 ここまで↑ */
 
 /* [クロスワード(play)]問題出力ここから↓ */
-#main #sub {
+.crossword#main,.crossword#sub {
 	float: left;
 }
 
-#main {
+.crossword#main {
 	margin-left: 10px;
 }
 
@@ -164,13 +176,6 @@ ul#keycol {
 /* [クロスワード(play)]ヒント出力ここまで↑ */
 
 /* [クロスワード(rank)]基本設定ここから↓ */
-.ranking#main {
-	background-image: url('/photo/CrossWord/kanban3.png');
-	background-repeat: no-repeat;
-	background-position: 50px -40px;
-	height: 500px;
-}
-
 .ranking#center {
 	height: 600px;
 	overflow: hidden;
@@ -183,20 +188,16 @@ ul#keycol {
 	margin-top:80px;
 	border-collapse:collapse;
 }
-#rankTable caption figure{
-	margin:0;
+#rankTable td,#rankTable th{
+	border:1px solid #999999;
 }
 #rankTable caption img{
 	width:300px;
 	height:80px;
 }
-
 #rankTable thead {
 	background-color:#573939;
 	color:#eee6de;
-}
-#rankTable tbody tr:nth-of-type(-n+3){
-    background-repeat:no-repeat;
 }
 #rankTable tbody tr:nth-of-type(1){
 	color:#ffd700;
@@ -227,9 +228,6 @@ ul#keycol {
 }
 .score {
 	text-align: right;
-}
-#rankTable td,#rankTable th{
-	border: 1px solid #999999;
 }
 #rankTable td:nth-child(1) ,#rankTable th:nth-child(1){ width: 70px; }
 #rankTable td:nth-child(2) ,#rankTable th:nth-child(2){ width: 300px; }
