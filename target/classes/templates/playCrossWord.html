@@ -6,7 +6,7 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="../javascript/createCrossword.js"></script>
 		<script type="text/javascript" src="../javascript/ansDragAndDrop.js"></script>
-				<script type="text/javascript" src="../javascript/removePlay.js"></script>
+		<script type="text/javascript" src="../javascript/removePlay.js"></script>
 	</head>
 	<body>
 		<div th:replace="common/header::header"></div>
@@ -14,7 +14,7 @@
 		<form name="form" th:object="${h_playinfo}" method="GET" th:action="|/crossword/play/check|" id="form_id">
 			<input id='id' name='id' type="hidden" th:value="*{id}" />
 			<input id='playTime' name="playTime" type="hidden" th:value="*{playTime}" />
-			<input id='template' name="template" type="hidden" th:value="${h_crossword.template_view}" />
+			<input id='template' name="template" type="hidden" th:value="${h_playinfo.template_view}" />
 			<input id='width' type="hidden" th:value="${h_crossword.width}" />
 			<input id='height' type="hidden" th:value="${h_crossword.height}" />
 			<!-- クロスワード出力部 -->
@@ -36,9 +36,9 @@
 								draggable="true"  ondragstart="f_dragstart(event)"></div>
 						</div>
 					</div>
-					<div id="button-center" class="inine">
-						<input class="button-middle" id="button-orange" type="submit" value="完成" onclick="stopShowing();" />
-						<input class="button-middle" id="button-orange" type="reset" value="クリア" />
+					<div id="chose">
+						<input class="input-ki haba"  type="submit" value="完成" onclick="stopShowing();" />
+						<input class="input-ki haba"  type="reset" value="クリア" />
 					</div>
 				</section>
 			</form>

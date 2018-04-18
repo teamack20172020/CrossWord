@@ -23,4 +23,8 @@ $('select[name="rankrange"]').change(function () {
 	 var nextpos=lookfor.top+sh;
 	 $('tbody.scroll').animate({scrollTop: nextpos},"slow", "swing");
 	});
+
+$('#next').click(function(){
+	$('.configdiv').fadeIn(300);
+	});
 });

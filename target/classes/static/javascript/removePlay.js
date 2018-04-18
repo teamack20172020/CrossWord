@@ -2,6 +2,7 @@
 $(function(){
 	//配列に格納されている入力値を文字列に変換
 	$('#form_id').submit(function(){
+		console.log("a");
 		var str = "";
 		var width = $("#width").val();
 		var height = $("#height").val();

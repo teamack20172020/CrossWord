@@ -31,6 +31,7 @@ public class Crossword implements Serializable {
 	private int kbn;
 	private String template;
 	private String template_view;
+	private int clearcnt;
 	private Date created;
 
 	private User user;
@@ -98,15 +99,13 @@ public class Crossword implements Serializable {
 	}
 
 	@Basic
-	@Column(name = "kbn")
-	public int getKbn() {
-		return kbn;
+	@Column(name = "clearcnt")
+	public int getClearcnt() {
+		return clearcnt;
 	}
 
-	@Basic
-	@Column(name = "kbn")
-	public void setKbn(int kbn) {
-		this.kbn = kbn;
+	public void setClearcnt(int clearcnt) {
+		this.clearcnt = clearcnt;
 	}
 
 	@Basic
@@ -127,6 +126,16 @@ public class Crossword implements Serializable {
 
 	public void setTemplate_view(String template_view) {
 		this.template_view = template_view;
+	}
+
+	@Basic
+	@Column(name = "kbn")
+	public int getKbn() {
+		return kbn;
+	}
+
+	public void setKbn(int kbn) {
+		this.kbn = kbn;
 	}
 
 	@Basic

@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="/../javascript/Scroll.js"></script>
+		<script type="text/javascript" src="/../javascript/common.js"></script>
 	</head>
 	<body>
 		<div th:replace="common/header::header"></div>
@@ -40,13 +41,22 @@
 								</tr>
 							</tbody>
 						</table>
+						<form  method="get" th:action="|/crossword/play/rank/replay|">
+						<div id="button-center">
+						<a class="input-ki haba" id="next" href="javascript:void(0)">次へ</a>
+						</div>
+						</form>
 					</div>
+
+					<div id="show" class="configdiv">
+					<ul>
+						<li	class="input-ki small" ><a 	 href="crossword" th:href="@{/crossword/Chose}">ほかのクロスワードを解く</a></li>
+ 						<li	class="input-ki small" ><a 	 href="crossword" th:href="@{/crossword/wantdo}">ホーム画面に戻る</a></li>
+						<li	class="input-ki small" ><a   href="crossword" th:href="@{/crossword/play/rank}">現在のランキングに戻る</a></li>
+						<li	class="input-ki small" ><a   href="crossword" th:href="@{/crossword}">ログアウト</a></li>
+					</ul>
+				</div>
 			</section>
-			<form  method="get" th:action="|/crossword/play/rank/replay|">
-			<div id="button-center">
-			<input class="button-big" id="button-orange" type="submit" value="次へ"></input>
-			</div>
-		</form>
 		</div>
 	</body>
 </html>

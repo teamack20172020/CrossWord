@@ -20,6 +20,7 @@ import jp.co.ack.crossword.domain.User.User;
 @Table(name = "crosswordplay")
 public class Crosswordplay implements Serializable {
 	private int id;
+	private String answer;
 	private int missCnt;
 	private double playTime;
 	private long score;
@@ -38,6 +39,16 @@ public class Crosswordplay implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Basic
+	@Column(name = "answer")
+	public String getTemplate_view() {
+		return answer;
+	}
+
+	public void setTemplate_view(String template_view) {
+		this.answer = template_view;
 	}
 
 	@Basic

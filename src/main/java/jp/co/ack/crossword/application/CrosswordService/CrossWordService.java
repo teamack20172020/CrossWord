@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +36,9 @@ public class CrossWordService {
 	CrossworditemRepository crossworditemrepository;
 	@Autowired
 	CrosswordplayRepository crosswordplayrepository;
+	@PersistenceContext
+	EntityManager entityManager;
+
 
 
 	/**
@@ -61,6 +68,7 @@ public class CrossWordService {
 		crossword = crosswordrepository.save(crossword);
 		crossword.setCrossworditem(createItems(temp,crossword));
 		crossword = crosswordrepository.save(crossword);
+
 		createPlayinfo(user, crossword);
 		return crossword;
 	}
@@ -93,15 +101,16 @@ public class CrossWordService {
 	/**
 	 * クロスワードプレイ情報登録処理
 	 */
-	private Crosswordplay createPlayinfo(User user,Crossword crossword){
+	public Crosswordplay createPlayinfo(User user,Crossword crossword){
 		Crosswordplay playinfo = new Crosswordplay();
 		playinfo.setMissCnt(0);
-		playinfo.setPlayTime(999999999);
+		playinfo.setPlayTime(0);
 		playinfo.setScore(0);
 		playinfo.setCompleteFlg(false);
 		playinfo.setCreated(new Date());
 		playinfo.setUser(user);
 		playinfo.setCrossword(crossword);
+		playinfo.setTemplate_view(crossword.getTemplate_view());
 		playinfo = crosswordplayrepository.save(playinfo);
 		return playinfo;
 
@@ -111,22 +120,32 @@ public class CrossWordService {
 	 * クロスワードプレイ情報更新処理
 	 */
 	public Crosswordplay updatePlayinfo(Crosswordplay playinfo,boolean flg){
-		playinfo.setMissCnt(playinfo.getMissCnt()+1);
 		if(flg){
 			playinfo.setCompleteFlg(true);
 			playinfo.setScore(score.getCrosswordScore(playinfo));
+			updateCrossword(playinfo);
 		}
 		playinfo = crosswordplayrepository.save(playinfo);
 		return playinfo;
+	}
+
+	/**
+	 * クロスワード更新処理
+	 */
+	public Crossword updateCrossword(Crosswordplay playinfo){
+		Crossword crossword = findById(playinfo.getCrossword().getId());
+		crossword.setClearcnt(crossword.getClearcnt() + 1);
+		crosswordrepository.save(crossword);
+		return crossword;
 
 	}
 
 	/**
 	 * 結果確認処理
 	 */
-	public boolean checkCrossWord(Crossword crossword){
+	public boolean checkCrossWord(Crossword crossword,String template){
 		String str = crossword.getTemplate();
-		if(!str.equals(crossword.getTemplate_view())){
+		if(!str.equals(template)){
 			return false;
 		}
 		return true;
@@ -144,7 +163,50 @@ public class CrossWordService {
 		return crossworditemrepository.findByCrosswordId(id);
 	}
 
-	public Crosswordplay findByCrosswordIdandUserId(int userid,int crosswordid){
+	public Crosswordplay findByCrosswordIdandUserId(int crosswordid,int userid){
 		return crosswordplayrepository.findByCrosswordIdAndUserId(crosswordid,userid);
+	}
+
+	public List<Crossword> getCrossWordList(int userid){
+		StringBuffer getCrosswordplaySQL = new StringBuffer();
+		getCrosswordplaySQL.append("select ");
+		getCrosswordplaySQL.append(" main.* ");
+		getCrosswordplaySQL.append("from ");
+		getCrosswordplaySQL.append("crossword main");
+		getCrosswordplaySQL.append(",crosswordplay sub ");
+		getCrosswordplaySQL.append("where ");
+		getCrosswordplaySQL.append("main.id = sub.crossword_id and ");
+		getCrosswordplaySQL.append("sub.user_id !=" + userid + " and ");
+		getCrosswordplaySQL.append("sub.complete_flg is true ");
+		getCrosswordplaySQL.append("group by main.id");
+		System.out.println(getCrosswordplaySQL.toString());
+		// クエリの生成
+		Query q = entityManager.createNativeQuery(getCrosswordplaySQL.toString(), Crossword.class);
+		@SuppressWarnings("unchecked")
+		List<Crossword> crosswordList =q.getResultList();
+		return crosswordList;
+	}
+	/*クロスワード取得処理*/
+	public  List<Crossword> getmyCrossWordList(int userid){
+		StringBuffer getCrosswordplaySQL = new StringBuffer();
+		getCrosswordplaySQL.append("select ");
+		getCrosswordplaySQL.append(" * ");
+		getCrosswordplaySQL.append("from ");
+		getCrosswordplaySQL.append("crossword main ");
+		getCrosswordplaySQL.append("where ");
+		getCrosswordplaySQL.append("main.id in (select ");
+		getCrosswordplaySQL.append("sub.crossword_id ");
+		getCrosswordplaySQL.append("from ");
+		getCrosswordplaySQL.append("crosswordplay sub ");
+		getCrosswordplaySQL.append("where ");
+		getCrosswordplaySQL.append("sub.user_id = "+userid+" and ");
+		getCrosswordplaySQL.append("sub.complete_flg is true ");
+		getCrosswordplaySQL.append("group by crossword_id )");
+		System.out.println(getCrosswordplaySQL.toString());
+		// クエリの生成
+		Query q = entityManager.createNativeQuery(getCrosswordplaySQL.toString(), Crossword.class);
+		@SuppressWarnings("unchecked")
+		List<Crossword> crosswordList =q.getResultList();
+		return crosswordList;
 	}
 }

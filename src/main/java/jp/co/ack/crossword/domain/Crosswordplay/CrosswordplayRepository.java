@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CrosswordplayRepository extends CrudRepository<Crosswordplay, String> {
 	Crosswordplay findById(int id);
-	Crosswordplay findByCrosswordIdAndUserId(int crosswordId,int userId);
+	Crosswordplay findByCrosswordIdAndUserId(int crosswordid,int userid);
 }

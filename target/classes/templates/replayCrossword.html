@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" th:with="title=�ف[��">
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>クロスワード-replay-</title>
@@ -9,14 +9,9 @@
 	<div th:replace="common/header::header"></div>
 	<form  method="get" th:action="|/crossword/play/rank/replay|">
 	<div id="body">
-		<div id="button-center">
-			<ul>
-				<li><a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword/play}">もう一度プレイ</a></li>
-				<li><a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword/play}">設定を変える</a></li>
-				<li><a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword/play/rank}">ランキングを見る</a></li>
-				<li><a class="button-big" id="button-orange" href="crossword" th:href="@{/crossword}">タイトルに戻る</a></li>
-			</ul>
-		</div>
+		<section id="main" class="replay">
+
+		</section>
 	</div>
 	</form>
 	</body>

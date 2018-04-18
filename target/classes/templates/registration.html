@@ -9,10 +9,9 @@
 	<body th:object="${h_from}">
 		<div th:replace="common/header::header"></div>
 		<div id="body">
+			<input th:if="${warning != null}"  id='warning' type="hidden" th:value="${warning}" />
 			<form action="user/next" th:action="|/crossword/user/next|" th:object="${h_user}" method="get">
-
 				<section class="Crossuser" id="main">
-						<h2>CROSSWORD</h2>
 						<div id="tutorial">
 						<div id="Description">
 							<h2>USER登録</h2>
@@ -24,8 +23,8 @@
 						</div>
 						<div id="chose">
 							<ul>
-								<li><a class="login" href="javascript:void(0)">ログイン</a></li>
-								<li><a class="registation" href="javascript:void(0)">新規登録</a></li>
+								<li class="button-ki"><a class="login" href="javascript:void(0)">ログイン</a></li>
+								<li	class="button-ki"><a class="registation" href="javascript:void(0)">新規登録</a></li>
 							</ul>
 							<a  href="javascript:void(0)" th:href="@{/crossword/user/next}">ゲストplay</a>
 						</div>
@@ -37,17 +36,21 @@
 							<a class="back" href="javascript:void(0)">
 							<img src="../photo/button/back_button.gif" alt="ZOO LOGICAL"></img>
 							</a>
-								<p>ユーザー名
-								<input name="name" id="name" class="log" type="text"  th:value="*{name}" required="true" disabled="true"></input></p>
-								<p>パスワード
+							<div>
+								<p>👤
+								<input name="name" id="name" class="log" type="text"  th:value="*{name}" required="true" disabled="true" placeholder="ユーザー名">
+								</input>
+								</p>
+								<p>🔒
 							<input name="pass" id="pass" class="log" type="text"  th:value="*{password}" disabled="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれるように入力してください"></input></p>
+							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれるように入力してください"
+							 placeholder="パスワード"></input></p>
 								<div id="button-center">
-									<input type="submit" value="ログイン"></input>
+									<input class="input-ki small" type="submit" value="ログイン" name="login"></input>
 								</div>
+							</div>
 								<ul>
 									<li><a class="registation"  href="javascript:void(0)">新規登録</a></li>
-									<li><a  th:href="@{/crossword/user/next}">ゲストplay</a></li>
 								</ul>
 						</div>
 
@@ -56,17 +59,17 @@
 							<a class="back" href="javascript:void(0)">
 							<img src="../photo/button/back_button.gif" alt="ZOO LOGICAL"></img>
 							</a>
-								<p>ユーザー名
-								<input name="name" id="name" class="reg" type="text"  th:value="*{name}" required="true" disabled="true"></input></p>
-								<p>パスワード
+								<p>👤
+								<input name="name" id="name" class="reg" type="text"  th:value="*{name}" required="true" disabled="true" placeholder="ユーザー名"></input></p>
+								<p>🔒
 							<input name="pass" id="pass" class="reg" type="text"  th:value="*{password}"  disabled="true"	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれていること"></input></p>
-								<div id="button-center">
-									<input type="submit" value="登録"></input>
+							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれていること"
+							  placeholder="パスワード"></input></p>
+								<div id="button-center" >
+									<input class="input-ki small" type="submit" value="登録" name="config"></input>
 								</div>
 								<ul>
 									<li><a class="login"  href="javascript:void(0)">ログイン</a></li>
-									<li><a  th:href="@{/crossword/user/next}">ゲストplay</a></li>
 								</ul>
 						</div>
 				</section>

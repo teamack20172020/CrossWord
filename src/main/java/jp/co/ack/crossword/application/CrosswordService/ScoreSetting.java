@@ -36,8 +36,8 @@ public class ScoreSetting {
 		String limit;
 
 		kbn = config.MST_CROSSWORD_CNT_KBN;
-		field01 = " >= " + croPlay.getMissCnt();
-		order = "order by field01 ASC";
+		field01 = " <= " + croPlay.getMissCnt();
+		order = "order by field01 DESC";
 		limit = "limit 1";
 		List<Mst> mstCnt = getMstList(kbn,field01,"","",order,limit);
 
@@ -48,18 +48,18 @@ public class ScoreSetting {
 		}
 
 		kbn = config.MST_CROSSWORD_TIM_KBN;
-		field01 = " >= " + croPlay.getPlayTime();
-		field02 = " <= " + croPlay.getPlayTime();
+		field01 = " <= " + croPlay.getPlayTime();
+		field02 = " >= " + croPlay.getPlayTime();
 		order = "order by field03 ASC";
 		limit = "limit 1";
 		List<Mst> mstTime = getMstList(kbn,field01,field02,"",order,limit);
 
 		int cntkaten = 0;
 		if(mstTime.size() > 0){
-			cntkaten = Integer.valueOf(mstTime.get(0).getField03());
+			cntkaten = (int)Double.parseDouble(mstTime.get(0).getField03());
 		}
 
-		int base = 9999;
+		int base = 999;
 		int score = (int)(base * cntKeisu) + cntkaten;
 
 		return score;
@@ -76,7 +76,7 @@ public class ScoreSetting {
 		strUsersearchSQL.append("select ");
 		strUsersearchSQL.append(" * ");
 		strUsersearchSQL.append("from  mst ");
-		strUsersearchSQL.append("where id = " + kbn);
+		strUsersearchSQL.append("where kbn = " + kbn);
 		if(!field01.equals("")){
 			strUsersearchSQL.append(" and field01 " + field01);
 		}

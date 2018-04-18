@@ -48,7 +48,10 @@ public class UserService {
 		return userRepository.findByCreated(datetime);
 	}
 
-
+	/*ユーザー名とpaswordを元にに取得*/
+	public User  getUserByNameAndPassword(String name,String password){
+		return	  userRepository.findByNameBINARYAndPasswordBINARY(name,password);
+	}
 	/**
 	 * ユーザー全件取得
 	 *
@@ -70,16 +73,32 @@ public class UserService {
 		user = userRepository.save(user);
 		return user;
 	}
-
-
-	public User createNewUser(String name, String pass) {
-		User user = new User();
+	public User createNewUser(String name, String pass){
+		User user =new User();
 		user.setName(name);
 		user.setPassword(pass);
 		user.setCreated(new Date());
 		user = userRepository.save(user);
 		return user;
 	}
+
+	/*押されたボタンからuserを探す処理*/
+	public User getuser(String name,String password,String config){
+		User user=null;
+		try{
+			user= getUserByNameAndPassword(name,password);
+		}catch(Exception e){
+		}
+		if(config!=null&&user==null){
+			user=createNewUser(name,password);
+		}else if(config!=null&&user!=null){
+			user=null;
+		}
+		return user;
+	}
+
+
+
 	/**
 	 * ユーザー更新処理
 	 *
@@ -107,6 +126,8 @@ public class UserService {
 		return datetime;
 	}
 
+
+
 	/**
 	 * ユーザー検索処理
 	 * (ランキング表示用)
@@ -114,10 +135,9 @@ public class UserService {
 	 * @param passWord
 	 * @param email
 	 */
-	public List<ranking> getRankUsers(int userid) {
-		List<User> userList = getRankUserList();
-		List<Crosswordplay> playList = getRankPlayList();
-
+	public List<ranking> getRankUsers(int userid,int crosswordid){
+		List<User> userList = getRankUserList(crosswordid);
+		List<Crosswordplay> playList = getRankPlayList(crosswordid);
 		int cnt = 0;
 		int flg = -1;
 		List<ranking> ranks = new ArrayList<ranking>();
@@ -139,15 +159,16 @@ public class UserService {
 		return ranks;
 	}
 
-	private List<User> getRankUserList(){
+	private List<User> getRankUserList(int crosswordid){
 		StringBuffer getRankingSQL = new StringBuffer();
 		getRankingSQL.append("select ");
 		getRankingSQL.append(" main.* ");
 		getRankingSQL.append("from ");
-		getRankingSQL.append(" user main ");
-		getRankingSQL.append(",crosswordplay sub ");
+		getRankingSQL.append("user main");
+		getRankingSQL.append(" ,crosswordplay sub ");
 		getRankingSQL.append("where ");
 		getRankingSQL.append("main.id = sub.user_id and ");
+		getRankingSQL.append("sub.crossword_id="+crosswordid+" and ");
 		getRankingSQL.append("sub.complete_flg is true ");
 		getRankingSQL.append("order by sub.score desc, sub.id desc ");
 		System.out.println(getRankingSQL.toString());
@@ -159,7 +180,7 @@ public class UserService {
 		return userList;
 	}
 
-	private List<Crosswordplay> getRankPlayList(){
+	private List<Crosswordplay> getRankPlayList(int crosswordid){
 		StringBuffer getRankingSQL = new StringBuffer();
 		getRankingSQL.append("select ");
 		getRankingSQL.append(" sub.* ");
@@ -168,6 +189,7 @@ public class UserService {
 		getRankingSQL.append(",crosswordplay sub ");
 		getRankingSQL.append("where ");
 		getRankingSQL.append("main.id = sub.user_id and ");
+		getRankingSQL.append("sub.crossword_id="+crosswordid+" and ");
 		getRankingSQL.append("sub.complete_flg is true ");
 		getRankingSQL.append("order by sub.score desc, sub.id desc ");
 		System.out.println(getRankingSQL.toString());
@@ -179,8 +201,8 @@ public class UserService {
 		return playList;
 
 	}
-	public ArrayList<Integer> getrange() {
-		List<User> userList = getRankUserList();
+	public ArrayList<Integer> getrange(int crosswordid) {
+		List<User> userList = getRankUserList(crosswordid);
 		ArrayList<Integer> range=new ArrayList<Integer>();
 		int count=1;
 		int b=userList.size();

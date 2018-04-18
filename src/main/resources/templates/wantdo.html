@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>選択画面</title>
+		<link rel="stylesheet" type="text/css" th:href="@{'/css/style.css'}" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="/../javascript/userconfig.js"></script>
+	</head>
+	<body>
+		<div th:replace="common/header::header"></div>
+		<div id="body">
+			<section class="CrossChose" id="main">
+			 <form th:action="|/crossword/wantdo/next|"  method="get">
+				 <div style="display: none;" id="Cross">
+				 	<h2><p>ランキングを確認したいクロスワードを選んでください</p></h2>
+					<ul id="oldcro">
+					<li  th:each="Chose,sn: ${h_1clearCross}"  th:id="${sn.index}"	style="display: none;">
+					<button id="blue"  name="CROSSID" th:value="${Chose.id}" >
+					<p th:text="${#dates.format(Chose.created, 'yyyy年MM月dd日 HH:mm:ss')}"></p>
+					<p	th:text="${Chose.user.name}+ 'さん作成'"></p>
+					<p>クリア人数<font th:text="${Chose.clearcnt}+'人'"  size="12px"></font></p>
+					</button>
+					</li>
+					</ul>
+				</div>
+				<div class="update"	style="display: none;">
+				<a id="update"  href="javascript:void(0)">更新
+				</a>
+				</div>
+			</form>
+				<div id="tutorial">
+				<ul	class="Big-button" id="button-list">
+						<li th:if="${h_flag==null}" id="green">
+						<button type="button" id="clearcross">
+						過去に問いたクロスワード<br/>のランキングを見る
+						</button>
+					</li>
+						<li id="blue">
+							<button type="button" id="start"><br/>クロスワードを始める</button>
+						</li>
+				</ul>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

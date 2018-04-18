@@ -56,8 +56,10 @@ $(function(){
 function showPassage() {
 	//カウントアップ
 	PassSec++;
+	var second=PassSec%60;
+	var minutes=(PassSec-second)/60;
 	// 表示文作成
-	var msg = "経過時間：" + PassSec + "秒";
+	var msg = "経過時間："+minutes +"分"+ second + "秒";
 	// 表示更新
 	document.getElementById("PassageArea").innerHTML = msg;
 }

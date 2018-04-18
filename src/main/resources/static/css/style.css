@@ -1,42 +1,62 @@
 ﻿@charset "utf-8";
 /*クロスワードの設定*/
-
 @import url('common.css');
-.Crossuser#main,.ranking#main{
+.Crossuser#main,.ranking#main,.replay#main,.CrossChose#main{
+	width:1152px;
 	background-image: url('/photo/CrossWord/kanban3.png');
-	background-position: 50px -40px;
+	background-position:90px -40px;
 	background-repeat:no-repeat;
-	height:500px;
+	height:648px;
+	background-size:85% 100%;
 	position:relative;
 }
+
+.userdiv,.configdiv{
+	background-image: url('/photo/CrossWord/print.png');
+	background-size:100% 100%;
+	z-index;3;
+	display:none
+}
+
 /* [クロスワード(user)]基本設定ここから↓*/
-#tutorial,.userdiv{
+#tutorial,.userdiv,.configdiv,div#Cross{
+  	position: absolute;
+	top: 80px;
+	left: 380px;
+}
+.userdiv,.configdiv{
 	width:450px;
 	height:400px;
-  	position: absolute;
-     top: 50px;
-    left: 200px;
 }
-#tutorial{
+#tutorial,div#Cross{
+	width:750px;
+	height:500px;
 	margin-top:30px;
+	left:200px;
 	z-index;1;
 }
 #Description{
-	height:250px;
+	width:600px;
+	height:300px;
+	padding:5px 0;
 	background-color:white;
-}
-#Description p{
-	text-align:left;
+	margin:0 auto 0 auto ;
 }
 
-.Crossuser#main ul li{
-	display:inline;
+.userdiv h2{
+	margin-top:50px;
 }
-.userdiv{
-	background-image: url('/photo/CrossWord/print.png');
-	background-size:100% 100%;
-	display:none;
-	z-index;3;
+
+#Description p{
+	text-align:left;
+	padding:20px;
+}
+#chose{
+	margin-top:25px;
+}
+#main  #tutorial ul li{
+	display:inline-block;
+	padding:0 10px;
 }
 .back{
 	position: absolute;
@@ -50,9 +70,51 @@
 }
 /* [クロスワード(user)]基本設定ここまで↑ */
 
+/* [クロスワード(CrossChose)]基本設定ここから↓*/
+
+#main #Cross ul li{
+	display:inline-block;
+	padding:0px 5px;:
+}
+
+#main #oldcro {
+	width:700px;
+	margin-right:0;
+	margin-left:15px;
+}
+
+#button-list{
+	margin-top:50px;
+}
+#oldcro button{
+	margin-bottom:10px;
+}
+#oldcro button p{
+	margin:0;
+	background-color:aliceblue;
+	font-size:16px;
+}
+#oldcro button p:nth-of-type(1){
+	background-color:#00CCFF;
+	padding:5px 6px;
+	color:white;
+}
+#oldcro button p:nth-of-type(2){
+	color:#778899;
+}
+#oldcro button p:nth-of-type(3){
+	color:#815a2b;
+}
+#main .update a{
+	position: absolute;
+    top:450px;
+    left:900px;
+}
+/* [クロスワード(CrossChose)]基本設定ここまで↑ */
+
 
 /* [クロスワード(play)]基本設定ここから↓*/
-.CrossWordPlaying {
+.CrossWordPlaying{
 	background-image: url('/photo/CrossWord/background_01.jpg');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -60,20 +122,19 @@
 }
 
 .crossword {
-	display: inline-block;
+	display:inline-block;
 }
 /* [クロスワード(play)]基本設定ここまで↑ */
 
 /* [クロスワード(play)]タイマー出力 ここから↓ */
 p#PassageArea {
 	height: 40px;
-	margin: 20px 0 15px 0;
+	margin: 20px 0 20px 0;
 	padding: 10px;
 	font-size: 25px;
 	background-image: url('/photo/CrossWord/time2.png');
 	background-repeat:no-repeat;
 	background-size: 100% 100%;
-	background-repeat: no-repeat;
 }
 
 /* [クロスワード(play)]タイマー出力 ここまで↑ */
@@ -84,7 +145,7 @@ p#PassageArea {
 }
 
 .crossword#main {
-	margin-left: 10px;
+	margin-left: 40px;
 }
 
 .crossword[type="text"] {
@@ -98,20 +159,16 @@ li #dummy {
 	width: calc(0vmin + 60px);
 	height: calc(0vmin + 60px);
 }
-
 #enp.crossword {
 	background-color: #000000;
 }
-
 #table ul {
 	padding: 0;
 	font-size: 0;
 }
-
 #row ul li {
 	float: left;
 }
-
 /* [クロスワード(home)]問題出力ここまで↑ */
 
 /* [クロスワード(play)]ヒント出力ここから↓ */
@@ -121,7 +178,7 @@ li #dummy {
 
 .crossword#sub {
 	background-image: url('/photo/CrossWord/kanban02.png');
-	background-size: 100% 95%;
+	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	text-align: center;
 	background-repeat: no-repeat;
@@ -137,7 +194,7 @@ li #dummy {
 
 .hint {
 	width: 180px;
-	height: 330px;
+	height: 360px;
 	float: left;
 	color: #565656;
 	background-repeat: no-repeat;
@@ -173,12 +230,18 @@ ul#keycol {
 	padding-left: 40px;
 }
 
+
+.haba{
+	width:150px;
+	margin:0 10px;
+}
 /* [クロスワード(play)]ヒント出力ここまで↑ */
 
 /* [クロスワード(rank)]基本設定ここから↓ */
 .ranking#center {
 	height: 600px;
 	overflow: hidden;
+	z-index;1;
 }
 
 #rankTable {
@@ -259,3 +322,21 @@ ul#keycol {
   box-shadow: none;
 }
 /* [クロスワード(rank)]基本設定ここまで↑ */
+/* [クロスワード(replay)]基本設定ここから↓*/
+.configdiv{
+	margin-top:40px;
+}
+.configdiv ul{
+	margin-top:40px;
+}
+
+.configdiv li{
+	margin:40px auto 0 auto;
+	width:300px;
+}
+
+.configdiv li a{
+	color:white;
+	text-decoration: none;
+}
+/* [クロスワード(replay)]基本設定ここまで↑ */

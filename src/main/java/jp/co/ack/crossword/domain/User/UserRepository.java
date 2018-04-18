@@ -16,5 +16,8 @@ public interface UserRepository extends CrudRepository<User, String> {
 	@Query(value = "SELECT * from user WHERE created = :created", nativeQuery = true)
 	User findByCreated(@Param("created") Date created);
 
+	@Query(value = "SELECT * from user WHERE name=BINARY ?1 AND password=BINARY ?2" , nativeQuery = true)
+	User findByNameBINARYAndPasswordBINARY(String name,String password);
+
 	User findById(int id);
 }
