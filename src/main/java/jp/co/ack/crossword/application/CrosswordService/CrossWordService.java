@@ -167,17 +167,25 @@ public class CrossWordService {
 		return crosswordplayrepository.findByCrosswordIdAndUserId(crosswordid,userid);
 	}
 
+	public Crosswordplay findBycomplete(int crosswordid,int userid){
+		return crosswordplayrepository.findBycomplete(crosswordid,userid);
+	}
+
 	public List<Crossword> getCrossWordList(int userid){
 		StringBuffer getCrosswordplaySQL = new StringBuffer();
 		getCrosswordplaySQL.append("select ");
-		getCrosswordplaySQL.append(" main.* ");
+		getCrosswordplaySQL.append("main.* ");
 		getCrosswordplaySQL.append("from ");
-		getCrosswordplaySQL.append("crossword main");
-		getCrosswordplaySQL.append(",crosswordplay sub ");
+		getCrosswordplaySQL.append("crossword main,crosswordplay sub ");
 		getCrosswordplaySQL.append("where ");
-		getCrosswordplaySQL.append("main.id = sub.crossword_id and ");
-		getCrosswordplaySQL.append("sub.user_id !=" + userid + " and ");
-		getCrosswordplaySQL.append("sub.complete_flg is true ");
+		getCrosswordplaySQL.append("main.id=sub.crossword_id and ");
+		getCrosswordplaySQL.append("sub.complete_flg is true and ");
+		getCrosswordplaySQL.append("main.id ");
+		getCrosswordplaySQL.append("not in ");
+		getCrosswordplaySQL.append("(select sub2.crossword_id from crosswordplay sub2 ");
+		getCrosswordplaySQL.append("where ");
+		getCrosswordplaySQL.append("sub2.user_id =" + userid + " and ");
+		getCrosswordplaySQL.append("sub2.complete_flg is true ) ");
 		getCrosswordplaySQL.append("group by main.id");
 		System.out.println(getCrosswordplaySQL.toString());
 		// クエリの生成
