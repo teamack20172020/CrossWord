@@ -39,8 +39,6 @@ public class CrossWordService {
 	@PersistenceContext
 	EntityManager entityManager;
 
-
-
 	/**
 	 *クロスワード登録処理
 	 */

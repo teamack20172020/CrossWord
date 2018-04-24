@@ -6,18 +6,18 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import jp.co.ack.crossword.application.WordService;
 import jp.co.ack.crossword.domain.Word.Word;
-import jp.co.ack.crossword.domain.Word.WordRepository;
 import jp.co.ack.crossword.interfaces.vo.template;
 
 @Component
 class WordSetting {
 
 	@Autowired
-	WordRepository wrep;
+	WordService wordservice;
 
 	public ArrayList<Word> getWordList(int size){
-		return (ArrayList<Word>) wrep.findBySize(size);
+		return (ArrayList<Word>) wordservice.getWordList(size);
 	}
 
 	/**
@@ -34,7 +34,6 @@ class WordSetting {
 
 		//単語リストを取得
 		ArrayList<Word> wordListwk = new ArrayList<Word>(wordList);
-
 		//文字一致条件を満たすか、リストが空になるまで実行
 		while(wordListwk.size() > 0){
 
