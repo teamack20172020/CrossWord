@@ -38,19 +38,18 @@
 							</a>
 							<div>
 								<p>👤
-								<input name="name" id="name" class="log" type="text"  th:value="*{name}" required="true" disabled="true" placeholder="ユーザー名">
+								<input name="name"  class="log" type="text"  th:value="*{name}" required="true" disabled="true" placeholder="ユーザー名">
 								</input>
 								</p>
 								<p>🔒
-							<input name="pass" id="pass" class="log" type="text"  th:value="*{password}" disabled="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれるように入力してください"
-							 placeholder="パスワード"></input></p>
+							<input name="pass"  class="log" type="password"  th:value="*{password}" required="true" disabled="true"
+							 pattern="(?=.*\d)(?=.*[a-z]).{4,}" title="英数字で4文字以上入力してください" placeholder="パスワード"  minlength="4"></input></p>
 								<div id="button-center">
-									<input class="input-ki small" type="submit" value="ログイン" name="login"></input>
+									<input class="input-ki small log" type="submit" value="ログイン" name="login" disabled="true"></input>
 								</div>
 							</div>
 								<ul>
-									<li><a class="registation"  href="javascript:void(0)">新規登録</a></li>
+									<li><a class="registation"  href="javascript:void(0)"  >新規登録</a></li>
 								</ul>
 						</div>
 
@@ -60,13 +59,13 @@
 							<img src="../photo/button/back_button.gif" alt="ZOO LOGICAL"></img>
 							</a>
 								<p>👤
-								<input name="name" id="name" class="reg" type="text"  th:value="*{name}" required="true" disabled="true" placeholder="ユーザー名"></input></p>
+								<input name="name"  class="reg" type="text"  th:value="*{name}" required="true" disabled="true" placeholder="ユーザー名"></input></p>
 								<p>🔒
-							<input name="pass" id="pass" class="reg" type="text"  th:value="*{password}"  disabled="true"	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-							 title="8文字以上で1文字以上の数字、小文字アルファベット、大文字アルファベットがそれぞれ含まれていること"
-							  placeholder="パスワード"></input></p>
+								<input name="pass"  class="reg" type="password"  th:value="*{password}" required="true" disabled="true"  minlength="4"
+ 								pattern="(?=.*\d)(?=.*[a-z]).{4,}" title="英数字で4文字以上入力してください"  placeholder="パスワード">
+ 								</input></p>
 								<div id="button-center" >
-									<input class="input-ki small" type="submit" value="登録" name="config"></input>
+									<input class="input-ki small reg" type="submit" value="登録" name="config" disabled="true"></input>
 								</div>
 								<ul>
 									<li><a class="login"  href="javascript:void(0)">ログイン</a></li>

@@ -91,8 +91,9 @@ public class CrossWordController {
 		}
 		return url;
 	}
-
-	/**/
+	 /**
+     *  画面遷移先の選択[ランキングorプレイ]
+     */
 	@GetMapping("wantdo")
 	public ModelAndView wantdi(Model model){
 		//プレイ情報の初期化
@@ -107,6 +108,10 @@ public class CrossWordController {
 		return mav;
 	}
 
+
+    /**
+     * ランキングに情報を渡す処理
+     * */
 	@GetMapping("wantdo/next")
 	public String clearparam(RedirectAttributes attributes,@RequestParam("CROSSID") int crosswordId){
 		attributes.addFlashAttribute("crosswordId",crosswordId);
@@ -114,6 +119,10 @@ public class CrossWordController {
 		return url;
 	}
 
+	  /**
+     * クロスワードの選択[過去問or新規作成]
+      ※プレイ選択(userconfig.js)からの遷移
+     * */
 	@GetMapping("Chose")
 	public ModelAndView Chose(Model model){
 		//プレイ情報の初期化
@@ -129,6 +138,11 @@ public class CrossWordController {
 		return mav;
 	}
 
+
+
+    /**
+     * 過去問からプレイに情報を渡す処理
+     */
 	@GetMapping("Chose/next")
 	public String param(RedirectAttributes attributes,@RequestParam("CROSSID") int crosswordId){
 		User user = userService.getUserById((int) session.getAttribute("USERID"));
@@ -139,9 +153,11 @@ public class CrossWordController {
 		return url;
 	}
 
-	/**
-	 * プレイページ
-	 */
+	 /**
+     * プレイページ
+     * Chose/nextからの遷移or
+     * 新規作成(userconfig.jsのurl)からの遷移
+     */
 	@GetMapping("play")
 	public ModelAndView play(Model model) {
 		User j_user = new User();
@@ -152,20 +168,23 @@ public class CrossWordController {
 			str = (String) session.getAttribute("PLAYID");
 		}
 		if(str == null || str.equals("null") || str.equals("")){
+			//クロスワードの新規作成
 			j_user = userService.getUserById((int) session.getAttribute("USERID"));
 			str = String.valueOf(crosswordService.main(j_user));
 			j_playinfo = crosswordService.PlayInfofindById(Integer.valueOf(str));
 			j_crossword = crosswordService.findById(j_playinfo.getCrossword().getId());
 		}else{
+			//クロスワードのリロード
 			j_playinfo = crosswordService.PlayInfofindById(Integer.valueOf(str));
 			j_crossword = crosswordService.findById(j_playinfo.getCrossword().getId());
 			String strtemp = (String) model.asMap().get("template");
 			if(!(strtemp == null || strtemp.equals("null") || strtemp.equals(""))){
+				//過去問時の設定
 				j_playinfo.setTemplate_view((String) model.asMap().get("template"));
 			}
 		}
 
-		//PlayIdの設定
+		//PlayIdの保存
 		session.setAttribute("PLAYID",str);
 
 		//画面出力用情報の取得
@@ -210,24 +229,27 @@ public class CrossWordController {
 		return url;
 	}
 
-	/**
-	 * クロスワードランキング表示*/
-
+	 /**
+     * クロスワードランキング表示
+     * ランキング確認orプレイからの遷移
+     **/
 	@GetMapping("play/rank")
 	public ModelAndView rank(Model model) {
 		String str = String.valueOf(model.asMap().get("crosswordId"));
 		int userid=(int) session.getAttribute("USERID");
-
 		//ランキングの取得
 		int crosswordid;
 		if(str == null || str.equals("null") || str.equals("")){
+			//リロード
 			str = String.valueOf((int) session.getAttribute("PLAYID"));
 			Crosswordplay playinfo = crosswordService.PlayInfofindById(Integer.valueOf(str));
 			crosswordid = playinfo.getCrossword().getId();
 		}else{
+			//プレイ画面orランキング選択画面から
 			crosswordid = Integer.valueOf(str);
 			Crosswordplay playinfo = crosswordService.findBycomplete(crosswordid, userid);
 			session.removeAttribute("PLAYID");
+			//セッションに保存
 			session.setAttribute("PLAYID",playinfo.getId());
 			//attributes.addFlashAttribute("crosswordId",crosswordid);
 		}
