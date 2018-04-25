@@ -46,7 +46,7 @@ function f_drop(event){
 
 	var res = 0;
 	for(var i = 0; i < str.length; i++) {
-		if(check > check_wk){
+		if(check >= check_wk){
 			res = -1;
 			break;
 		}
