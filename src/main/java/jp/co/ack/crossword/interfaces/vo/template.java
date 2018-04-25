@@ -104,16 +104,16 @@ public class template{
 		this.wordlist = new ArrayList<Word>(wordlist);
 		this.wordmap = new HashMap<Integer, ArrayList<Word>>();
 		for (Word word: this.wordlist){
-	        //キーが存在するか確認
-	        if (this.wordmap.containsKey(word.getSize())){
-	        	ArrayList<Word> list = this.wordmap.get(word.getSize());
-	        	list.add(word);
-	        	this.wordmap.put(word.getSize(),list);
-	        }else{
-	        	ArrayList<Word> list = new ArrayList<Word>();
-	        	list.add(word);
-	        	this.wordmap.put(word.getSize(),list);
-	        }
+			//キーが存在するか確認
+			if (this.wordmap.containsKey(word.getSize())){
+				ArrayList<Word> list = this.wordmap.get(word.getSize());
+				list.add(word);
+				this.wordmap.put(word.getSize(),list);
+			}else{
+				ArrayList<Word> list = new ArrayList<Word>();
+				list.add(word);
+				this.wordmap.put(word.getSize(),list);
+			}
 		}
 	}
 
@@ -291,9 +291,9 @@ public class template{
 	}
 
 	public void deleteWordlist(Word word) {
-    	ArrayList<Word> list = this.wordmap.get(word.getSize());
-    	list.remove(list.indexOf(word));
-    	this.wordmap.put(word.getSize(),list);
+		ArrayList<Word> list = this.wordmap.get(word.getSize());
+		list.remove(list.indexOf(word));
+		this.wordmap.put(word.getSize(),list);
 		this.wordlist.remove(wordlist.indexOf(word));
 	}
 

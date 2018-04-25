@@ -1,12 +1,10 @@
 package jp.co.ack.crossword.application;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,31 +23,6 @@ public class WordService {
 
 	public ArrayList<Word> getWordList(int size){
 		return (ArrayList<Word>) wrep.findBySize(size);
-	}
-
-	public List<Word> getWordList(int size,String key,ArrayList<Word> delwordlist){
-
-		String delword  = "''";
-		for(int i = 0; i < delwordlist.size();i++){
-			delword += ",'"+delwordlist.get(i).getWord()+"'";
-		}
-
-		StringBuffer getWordListSQL = new StringBuffer();
-		getWordListSQL.append("select ");
-		getWordListSQL.append(" * ");
-		getWordListSQL.append("from ");
-		getWordListSQL.append(" word main ");
-		getWordListSQL.append("where ");
-		getWordListSQL.append("main.size <= " + size + " and " );
-		getWordListSQL.append("main.word like '" + key + "%' and ");
-		getWordListSQL.append("main.word not in (" + delword + ") ");
-		//System.out.println(getWordListSQL.toString());
-		// クエリの生成
-		Query q = entityManager.createNativeQuery(getWordListSQL.toString(), Word.class);
-		// 抽出
-		@SuppressWarnings("unchecked")
-		List<Word> wordList = q.getResultList();
-		return wordList;
 	}
 
 	/**
@@ -261,7 +234,6 @@ public class WordService {
 			setEnpty(endEmp,temp.getEmpty(),flg,temp);
 			temp.deletePoint(endEmp, flg);
 		}
-
 
 		//単語を配置
 		int cnt = 0;

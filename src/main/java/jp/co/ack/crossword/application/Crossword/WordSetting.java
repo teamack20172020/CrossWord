@@ -1,4 +1,4 @@
-package jp.co.ack.crossword.application.CrosswordService;
+package jp.co.ack.crossword.application.Crossword;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -228,7 +228,6 @@ class WordSetting {
 			setEnpty(endEmp,temp.getEmpty(),flg,temp);
 			temp.deletePoint(endEmp, flg);
 		}
-
 
 		//単語を配置
 		int cnt = 0;

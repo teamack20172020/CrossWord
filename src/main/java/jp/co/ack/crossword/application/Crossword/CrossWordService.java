@@ -1,4 +1,4 @@
-package jp.co.ack.crossword.application.CrosswordService;
+package jp.co.ack.crossword.application.Crossword;
 
 import java.util.ArrayList;
 import java.util.Date;

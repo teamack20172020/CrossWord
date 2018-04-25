@@ -1,5 +1,4 @@
-package jp.co.ack.crossword.application.CrosswordService;
-
+package jp.co.ack.crossword.application.Crossword;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import jp.co.ack.crossword.config.ApplicationConfig;
 import jp.co.ack.crossword.domain.Crosswordplay.Crosswordplay;
 import jp.co.ack.crossword.domain.Mst.Mst;
 
-
 @Component
 public class ScoreSetting {
 
@@ -23,7 +21,6 @@ public class ScoreSetting {
 
 	@PersistenceContext
 	EntityManager entityManager;
-
 
 	/**
 	 * スコア算出[クロスワード]

@@ -1,4 +1,4 @@
-package jp.co.ack.crossword.application.CrosswordService;
+package jp.co.ack.crossword.application.Crossword;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,6 +34,7 @@ public class CreateCrossword{
 	public template create(int width,int height,int average) {
 
 		while(true){
+
 			//初期化
 			template temp = new template(width,height);
 			init(temp);
@@ -42,16 +43,15 @@ public class CreateCrossword{
 			main(temp);
 
 			//空白マス[■]のみで構成される列・行の存在確認
-			temp.setUtilization(temp);
-			if(temp.getUtilization() >= average){
+			if(checkEmpAll(temp)){
 				//文字の使用率率が指標以上であるか確認
-				if(checkEmpAll(temp)){
+				temp.setUtilization(temp);
+				if(temp.getUtilization() >= average){
 					return temp;
 				}
 			}
 		}
 	}
-
 
 	/**
 	 * @see [概要] 初期化
@@ -83,6 +83,7 @@ public class CreateCrossword{
 		}
 		create(temp,flg,temp.getEnptylist()[index]);
 	}
+
 	/**
 	 * @see [概要] クロスワード作成処理
 	 * @param temp
@@ -92,47 +93,67 @@ public class CreateCrossword{
 	 */
 	private void create(template temp,boolean flg,int sp){
 
-		int start = 0;
-
-		//初回のみ開始位置をランダムに決定する
-		if(sp >= 0){
-			start = sp;
-		}else{
-			start = rs.getStart(flg,temp);
-		}
+		int start = sp;
 
 		//配置可能方向を取得
 		ArrayList<Direction> rootList = new ArrayList<Direction>();
 		rs.getRootList(start,flg,rootList,temp);
 
 		//配置可能方向の存在チェック
-		if(rootList.size() != 0){
+		int[] next;
+		ArrayList<Word> wordList;
+		boolean res = false;
+		switch (rootList.size()) {
+		case 1:
 			//配置可能な最大文字数と移動サイズの取得
-			int[] next = rs.setRoot(start,rootList,temp);
-			ArrayList<Word> wordList = new ArrayList<Word>(temp.getWordlist());
+			next = rs.setRoot(start,rootList,temp);
+
+			//単語候補が0の場合は処理を終了する
+			if(temp.getWordlistForMap(next[1]) == null){
+				break;
+			}
+			wordList = new ArrayList<Word>(temp.getWordlistForMap(next[1]));
 
 			//配置可能文字の配備
-			boolean res = ws.setWord(start,next,flg,wordList,temp);
+			res = ws.setWord(start,next,flg,wordList,temp);
+
+			//配置可能文字が存在すれば縦横フラグを反転
+			if(res){
+				flg = !flg;
+			}
+			break;
+		case 2:
+			//配置可能な最大文字数と移動サイズの取得
+			next = rs.setRoot(start,rootList,temp);
+
+			//単語候補が0の場合は処理を終了する
+			if(temp.getWordlistForMap(next[1]) == null){
+				break;
+			}
+			wordList = new ArrayList<Word>(temp.getWordlistForMap(next[1]));
+
+			//配置可能文字の配備
+			res = ws.setWord(start,next,flg,wordList,temp);
 
 			//配置可能文字が存在すれば縦横フラグを反転
 			if(res){
 				flg = !flg;
 			}else{
-				//配置可能方向の存在チェック
-				if(rootList.size() != 0){
-					//配置可能な最大文字数と移動サイズの取得
-					next = rs.setRoot(start,rootList,temp);
-					wordList = new ArrayList<Word>(temp.getWordlist());
+				//配置可能な最大文字数と移動サイズの取得
+				next = rs.setRoot(start,rootList,temp);
+				wordList = new ArrayList<Word>(temp.getWordlistForMap(next[1]));
 
-					//配置可能文字の配備
-					res = ws.setWord(start,next,flg,wordList,temp);
+				//配置可能文字の配備
+				res = ws.setWord(start,next,flg,wordList,temp);
 
-					//配置可能文字が存在すれば縦横フラグを反転
-					if(res){
-						flg = !flg;
-					}
+				//配置可能文字が存在すれば縦横フラグを反転
+				if(res){
+					flg = !flg;
 				}
 			}
+			break;
+		default:
+			break;
 		}
 
 		//次の配置開始位置を取得
@@ -160,7 +181,6 @@ public class CreateCrossword{
 		int start;
 		int next;
 		int max;
-
 
 		//一行目
 		start = 0;

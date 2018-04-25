@@ -1,11 +1,11 @@
-package jp.co.ack.crossword.application.CrosswordService;
+package jp.co.ack.crossword.application.Crossword;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
-import jp.co.ack.crossword.application.CrosswordService.CreateCrossword.Direction;
+import jp.co.ack.crossword.application.Crossword.CreateCrossword.Direction;
 import jp.co.ack.crossword.interfaces.vo.template;
 
 @Component
@@ -71,7 +71,6 @@ class RootSetting {
 			break;
 		}
 	}
-
 
 	/**
 	 * @see [概要]  配置可能位置セット
