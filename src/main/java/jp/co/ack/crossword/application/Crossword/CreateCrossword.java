@@ -33,11 +33,18 @@ public class CreateCrossword{
 	 */
 	public template create(int width,int height,int average) {
 
-		while(true){
+		//対象となる文字リストの取得
+		int max  = width;
+		if(max < width){
+			max = height;
+		}
 
+		ArrayList<Word> wordlist = ws.getWordList(max);
+
+		while(true){
 			//初期化
-			template temp = new template(width,height);
-			init(temp);
+            template temp = new template(width,height);
+			init(temp,wordlist);
 
 			//作成
 			main(temp);
@@ -57,14 +64,13 @@ public class CreateCrossword{
 	 * @see [概要] 初期化
 	 * @param temp
 	 */
-	private void init(template temp){
+	private void init(template temp,ArrayList<Word> wordlist){
 
 		//退避領域の初期化
 		for (int i = 0; i < temp.getSize(); i++){
 			temp.setTemplate(i, temp.getNoempty());
 		}
-		//対象となる文字リストの取得
-		temp.setWordlist(ws.getWordList(temp.getMax()));
+		temp.setWordlist(wordlist);
 	}
 
 	private void main(template temp){
