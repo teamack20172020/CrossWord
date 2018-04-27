@@ -26,6 +26,7 @@ public class Crossword implements Serializable {
 	private int size;
 	private int width;
 	private int height;
+	private int imgno;
 	private double utilization;
 	private int level;
 	private int kbn;
@@ -76,6 +77,16 @@ public class Crossword implements Serializable {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	@Basic
+	@Column(name = "imgno")
+	public int getImgno() {
+		return imgno;
+	}
+
+	public void setImgno(int imgno) {
+		this.imgno = imgno;
 	}
 
 	@Basic

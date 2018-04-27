@@ -3,6 +3,7 @@ package jp.co.ack.crossword.application.Crossword;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -53,11 +54,16 @@ public class CrossWordService {
 	 *クロスワード登録処理
 	 */
 	private Crossword createCrossward(User user){
+		//クロスワード作成
 		Crossword crossword = new Crossword();
 		template temp = createcrossword.create(7, 7, 50);
+		//背景画像のランダム設定
+		Random rnd = new Random();
+		int imgno = rnd.nextInt(11);
 		crossword.setSize(temp.getSize());
 		crossword.setWidth(temp.getWidth());
 		crossword.setHeight(temp.getHeight());
+		crossword.setImgno(imgno);
 		crossword.setUtilization(temp.getUtilization());
 		crossword.setTemplate(temp.getTemplateToString());
 		crossword.setTemplate_view(temp.getFormatToTemplate());

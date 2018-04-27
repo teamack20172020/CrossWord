@@ -5,16 +5,10 @@ var PassageID;
 
 $(function(){
 
-	//背景画像をランダムに決定
-	var url=[];
-	url[0] = '01.jpg';
-	url[1] = '02.jpg';
-	url[2] = '03.jpg';
-	url[3] = '04.jpg';
-	url[4] = '05.jpg';
-	var n = Math.floor(Math.random() * url.length);
+	//背景画像を設定
+	var urlno = $("#backno").val();
 	var elm = document.getElementById('body');
-	elm.style.backgroundImage = 'url(/photo/CrossWord/background_' + url[n] + ')';
+	elm.style.backgroundImage = 'url(/photo/CrossWord/backimg/background_' + ( '0' + urlno ).slice( -2 ) + '.jpg)';
 
 	//クロスワード出力部生成処理
 	var h;
