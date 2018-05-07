@@ -56,7 +56,7 @@ public class CrossWordService {
 	private Crossword createCrossward(User user){
 		//クロスワード作成
 		Crossword crossword = new Crossword();
-		template temp = createcrossword.create(7, 7, 50);
+		template temp = createcrossword.create(7, 7, 49);
 		//背景画像のランダム設定
 		Random rnd = new Random();
 		int imgno = rnd.nextInt(10)+1;

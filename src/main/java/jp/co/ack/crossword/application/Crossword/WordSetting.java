@@ -67,6 +67,9 @@ class WordSetting {
 					endPoint = index+(temp.getWidth()*wordwk.getSize());
 				}
 			}else{
+				if(next[0] < 0){
+					index += next[0] * (wordwk.getSize()-1);
+				}
 				int x = index % temp.getWidth();
 				if(x > 0){
 					startPoint = index-1;
