@@ -145,7 +145,7 @@ p#PassageArea {
 }
 
 .crossword#main {
-	margin-left: 40px;
+	margin-left: 90px;
 }
 
 .crossword[type="text"] {
@@ -186,6 +186,7 @@ li #dummy {
 	float: right;
 	width: 430px;
 	height: 580px;
+	margin-right: 60px;
 }
 
 #hint ul {

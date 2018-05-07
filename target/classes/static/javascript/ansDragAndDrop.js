@@ -38,10 +38,6 @@ function f_drop(event){
 		check = (index) % check_wk;
 	}
 
-
-
-
-
 	//配置可能かチェック
 
 	var res = 0;
@@ -74,4 +70,3 @@ function f_drop(event){
 	//エラー回避のため、ドロップ処理の最後にdropイベントをキャンセルしておく
 	event.preventDefault();
 }
-
