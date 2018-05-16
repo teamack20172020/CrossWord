@@ -1,7 +1,6 @@
 package jp.co.ack.crossword.interfaces.vo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -50,7 +49,6 @@ public class template{
 
 	//単語リスト
 	ArrayList<Word> wordlist;
-	HashMap<Integer,ArrayList<Word>> wordmap;
 
 	//配値済み単語リスト(横方向)
 	private ArrayList<Word> wordListCol = new ArrayList<Word>();
@@ -102,21 +100,6 @@ public class template{
 
 	public void setWordlist(ArrayList<Word> wordlist) {
 		this.wordlist = new ArrayList<Word>(wordlist);
-		this.wordmap = new HashMap<Integer, ArrayList<Word>>();
-		for (Word word: this.wordlist){
-			for(int i = word.getSize(); i > 1;i--){
-				//キーが存在するか確認
-				if (this.wordmap.containsKey(i)){
-					ArrayList<Word> list = this.wordmap.get(i);
-					list.add(word);
-					this.wordmap.put(i,list);
-				}else{
-					ArrayList<Word> list = new ArrayList<Word>();
-					list.add(word);
-					this.wordmap.put(i,list);
-				}
-			}
-		}
 	}
 
 	public void setWord(Word word,boolean flg) {
@@ -241,10 +224,6 @@ public class template{
 		return wordlist;
 	}
 
-	public ArrayList<Word> getWordlistForMap(int size) {
-		return this.wordmap.get(size);
-	}
-
 	public ArrayList<Word> getWordListCol() {
 		return wordListCol;
 	}
@@ -293,8 +272,7 @@ public class template{
 	}
 
 	public void deleteWordlist(Word word) {
-		ArrayList<Word> list = this.wordmap.get(word.getSize());
-		list.remove(list.indexOf(word));
+		this.wordlist.remove(this.wordlist.indexOf(word));
 	}
 
 }

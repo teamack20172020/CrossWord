@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WordRepository extends CrudRepository<Word, String> {
-	@Query(value = "SELECT * from word WHERE size <= :size", nativeQuery = true)
+	@Query(value = "SELECT * FROM word WHERE id in (SELECT MIN(id) FROM word GROUP BY word) AND size <= :size", nativeQuery = true)
 	List<Word> findBySize(@Param("size") int size);
 }

@@ -114,11 +114,7 @@ public class CreateCrossword{
 			//配置可能な最大文字数と移動サイズの取得
 			next = rs.setRoot(start,rootList,temp);
 
-			//単語候補が0の場合は処理を終了する
-			if(temp.getWordlistForMap(next[1]) == null){
-				break;
-			}
-			wordList = new ArrayList<Word>(temp.getWordlistForMap(next[1]));
+			wordList = new ArrayList<Word>(temp.getWordlist());
 
 			//配置可能文字の配備
 			res = ws.setWord(start,next,flg,wordList,temp);
@@ -133,10 +129,10 @@ public class CreateCrossword{
 			next = rs.setRoot(start,rootList,temp);
 
 			//単語候補が0の場合は処理を終了する
-			if(temp.getWordlistForMap(next[1]) == null){
+			if(temp.getWordlist().size() == 0){
 				break;
 			}
-			wordList = new ArrayList<Word>(temp.getWordlistForMap(next[1]));
+			wordList = new ArrayList<Word>(temp.getWordlist());
 
 			//配置可能文字の配備
 			res = ws.setWord(start,next,flg,wordList,temp);
@@ -147,7 +143,7 @@ public class CreateCrossword{
 			}else{
 				//配置可能な最大文字数と移動サイズの取得
 				next = rs.setRoot(start,rootList,temp);
-				wordList = new ArrayList<Word>(temp.getWordlistForMap(next[1]));
+				wordList = new ArrayList<Word>(temp.getWordlist());
 
 				//配置可能文字の配備
 				res = ws.setWord(start,next,flg,wordList,temp);
